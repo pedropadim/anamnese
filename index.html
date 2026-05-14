@@ -500,10 +500,37 @@ function showToast(msg){
   t.textContent=msg;t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),2500);
 }
+const SHEETS_URL='https://script.google.com/macros/s/AKfycbwWpvZQ0V6K6N_UJ3sWm6jMsHL9vB04G1KWQ2SUNM5pf9XtCrJsnSuPB-rI_pUtkdpG/exec';
+
 function submitForm(e){
   e.preventDefault();
-  document.getElementById('frm').style.display='none';
-  document.getElementById('ok').style.display='block';
+  var btn=document.querySelector('.f-btn');
+  btn.textContent='Enviando...';
+  btn.disabled=true;
+
+  var payload={
+    nome:document.getElementById('nm').value,
+    profissao:document.getElementById('pf').value,
+    email:document.getElementById('em').value,
+    telefone:document.getElementById('tel').value,
+    ensaio:document.getElementById('ens-sel').value,
+    mensagem:document.getElementById('msg').value
+  };
+
+  fetch(SHEETS_URL,{
+    method:'POST',
+    mode:'no-cors',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(payload)
+  })
+  .then(function(){
+    document.getElementById('frm').style.display='none';
+    document.getElementById('ok').style.display='block';
+  })
+  .catch(function(){
+    document.getElementById('frm').style.display='none';
+    document.getElementById('ok').style.display='block';
+  });
 }
 
 renderSite();
