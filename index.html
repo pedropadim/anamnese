@@ -447,14 +447,14 @@ footer{background:var(--ink);padding:40px clamp(24px,5vw,80px)}
     <div class="footer-brand"><span class="dot"></span>Anamnese</div>
     <div class="footer-r">
       <p>Série de Ensaios em Economia da Saúde Pública</p>
-      <p>São Paulo · 2026</p>
+      <p>São Paulo · 2026 · <a href="https://anamnese.substack.com">anamnese.substack.com</a></p>
     </div>
   </div>
 </footer>
 
 <script>
-const SENHA  = 'P@dim2026';
-const SHEETS = 'https://script.google.com/macros/s/AKfycbyekKo45xLqYlK2b9YBLCdM5egr9vAcBfFV7nxcjZkZAiBtZ5pkw9mt5t-NVilOlfvu/exec';
+const SHEETS = 'https://script.google.com/macros/s/AKfycbyM41GNAw5TXh5NBEB_lSKKiL0qBr94wSuWALQ7fFtbbBx5m2LaZsPsNHXYZ5S9cxCN/exec';
+// Nota: a senha não existe mais aqui — fica apenas no servidor (Apps Script)
 
 // ── Dados padrão ──────────────────────────────────────────────────────
 const defaultEnsaios = [
@@ -471,6 +471,7 @@ let ensaios   = [...defaultEnsaios];
 let stats     = {...defaultStats};
 let sobre     = {...defaultSobre};
 let editingId = null;
+let authToken = sessionStorage.getItem('anamnese_token') || null;
 
 // ── Comunicação com o Sheets ──────────────────────────────────────────
 function sheetsGet(action) {
@@ -478,45 +479,46 @@ function sheetsGet(action) {
   return fetch(url).then(r => r.json()).catch(() => null);
 }
 function sheetsPost(payload) {
+  // Injeta token em todas as requisições de escrita
+  if (authToken && payload.action) {
+    payload.token = authToken;
+  }
   return fetch(SHEETS, {
     method: 'POST',
     mode: 'no-cors',
     headers: {'Content-Type':'application/json'},
     body: JSON.stringify(payload)
-  }).catch(() => {});
+  }).then(() => ({ status: 'ok' })).catch(() => null);
 }
 
-// ── Inicializar — carrega tudo do Sheets em paralelo ──────────────────
+// ── Inicializar — carrega tudo do Sheets ──────────────────────────────
 function inicializar() {
   Promise.all([
     sheetsGet('ensaios'),
     sheetsGet('stats'),
     sheetsGet('sobre')
   ]).then(([e, s, sb]) => {
-    if (Array.isArray(e) && e.length > 0)    ensaios = e;
-    if (s && typeof s === 'object' && s.s1n)  stats   = s;
-    if (sb && typeof sb === 'object' && sb.nome) sobre = sb;
+    if (Array.isArray(e) && e.length > 0)         ensaios = e;
+    if (s  && typeof s  === 'object' && s.s1n)    stats   = s;
+    if (sb && typeof sb === 'object' && sb.nome)  sobre   = sb;
     renderSite();
   }).catch(() => renderSite());
 }
 
 // ── Persistir no Sheets ───────────────────────────────────────────────
-function persistirEnsaios(msg) {
-  sheetsPost({action:'saveEnsaios', ensaios})
-    .then(() => showToast(msg || 'Salvo!'));
+function persistir(action, data, msg) {
+  sheetsPost({action, ...data}).then(() => {
+    showToast(msg || 'Salvo!');
+  }).catch(() => {
+    showToast('Erro ao salvar. Verifique a conexão.');
+  });
 }
-function persistirStats(msg) {
-  sheetsPost({action:'saveStats', stats})
-    .then(() => showToast(msg || 'Salvo!'));
-}
-function persistirSobre(msg) {
-  sheetsPost({action:'saveSobre', sobre})
-    .then(() => showToast(msg || 'Salvo!'));
-}
+function persistirEnsaios(msg) { persistir('saveEnsaios', {ensaios}, msg); }
+function persistirStats(msg)   { persistir('saveStats',   {stats},   msg); }
+function persistirSobre(msg)   { persistir('saveSobre',   {sobre},   msg); }
 
 // ── RENDER SITE ───────────────────────────────────────────────────────
 function renderSite() {
-  // ensaios
   const published = ensaios.filter(e => e.published);
   const r = document.getElementById('ensaios-render');
   r.innerHTML = published.map((e, i) => `
@@ -536,7 +538,6 @@ function renderSite() {
   const sel = document.getElementById('ens-sel');
   sel.innerHTML = '<option value="">Comentário geral</option>' +
     published.map((e,i) => `<option>${String(i+1).padStart(2,'0')} · ${e.title}</option>`).join('');
-
   // stats
   document.getElementById('s1n-disp').textContent = stats.s1n;
   document.getElementById('s1l-disp').textContent = stats.s1l;
@@ -544,7 +545,6 @@ function renderSite() {
   document.getElementById('s2l-disp').textContent = stats.s2l;
   document.getElementById('s3n-disp').textContent = stats.s3n;
   document.getElementById('s3l-disp').textContent = stats.s3l;
-
   // sobre
   const nome = sobre.nome || defaultSobre.nome;
   const nomeLines = nome.split(' ');
@@ -573,7 +573,7 @@ function renderPanel() {
         ? `<span class="e-tag" style="color:var(--lime-dark);background:rgba(200,241,53,.15);border:none;font-family:monospace">${e.url}</span>`
         : `<span class="e-tag" style="color:#e24b4a;background:rgba(226,75,74,.1);border:none">sem link</span>`}
       <div class="e-btns">
-        <label class="e-toggle" title="${e.published?'Publicado':'Rascunho'}">
+        <label class="e-toggle">
           <input type="checkbox" onchange="togglePublished(${e.id},this.checked)" ${e.published?'checked':''} style="display:none">
           <span style="font-size:11px;font-weight:700;padding:5px 10px;border-radius:7px;border:1px solid;cursor:pointer;transition:all .2s;${e.published
             ? 'background:rgba(200,241,53,.2);color:var(--lime-dark);border-color:var(--lime-dark)'
@@ -585,16 +585,12 @@ function renderPanel() {
         <button class="eb del" onclick="delEnsaio(${e.id})">Remover</button>
       </div>
     </div>`).join('');
-
-  // stats
   document.getElementById('s1n').value = stats.s1n;
   document.getElementById('s1l').value = stats.s1l;
   document.getElementById('s2n').value = stats.s2n;
   document.getElementById('s2l').value = stats.s2l;
   document.getElementById('s3n').value = stats.s3n;
   document.getElementById('s3l').value = stats.s3l;
-
-  // sobre
   document.getElementById('sb-nome').value = sobre.nome  || defaultSobre.nome;
   document.getElementById('sb-lema').value = sobre.lema  || defaultSobre.lema;
   document.getElementById('sb-t1').value   = sobre.t1    || defaultSobre.t1;
@@ -606,7 +602,7 @@ function renderPanel() {
   document.getElementById('sb-c3').value   = sobre.c3    || defaultSobre.c3;
 }
 
-// ── LOGIN ─────────────────────────────────────────────────────────────
+// ── LOGIN — agora via servidor ────────────────────────────────────────
 function openAdmin() {
   document.getElementById('login-overlay').classList.add('open');
   setTimeout(() => document.getElementById('login-input').focus(), 80);
@@ -617,15 +613,32 @@ function closeLogin() {
   document.getElementById('login-err').style.display = 'none';
 }
 function doLogin() {
-  if (document.getElementById('login-input').value === SENHA) {
-    closeLogin();
-    renderPanel();
-    document.getElementById('admin-overlay').classList.add('open');
-  } else {
+  const senha = document.getElementById('login-input').value;
+  const btn   = document.querySelector('.login-btn');
+  btn.textContent = 'Verificando...'; btn.disabled = true;
+
+  // Login via GET para evitar CORS — senha vai como parâmetro na URL
+  fetch(SHEETS + '?action=login&senha=' + encodeURIComponent(senha))
+  .then(r => r.json())
+  .then(res => {
+    btn.textContent = 'Entrar'; btn.disabled = false;
+    if (res.status === 'ok') {
+      authToken = res.token;
+      sessionStorage.setItem('anamnese_token', authToken);
+      closeLogin();
+      renderPanel();
+      document.getElementById('admin-overlay').classList.add('open');
+    } else {
+      document.getElementById('login-err').style.display = 'block';
+      document.getElementById('login-input').value = '';
+      document.getElementById('login-input').focus();
+    }
+  })
+  .catch(() => {
+    btn.textContent = 'Entrar'; btn.disabled = false;
+    document.getElementById('login-err').textContent = 'Erro de conexão. Tente novamente.';
     document.getElementById('login-err').style.display = 'block';
-    document.getElementById('login-input').value = '';
-    document.getElementById('login-input').focus();
-  }
+  });
 }
 function closePanel() {
   document.getElementById('admin-overlay').classList.remove('open');
@@ -738,13 +751,18 @@ function submitForm(e) {
   e.preventDefault();
   const b = document.querySelector('.f-btn');
   b.textContent = 'Enviando...'; b.disabled = true;
-  sheetsPost({
-    nome:      document.getElementById('nm').value,
-    profissao: document.getElementById('pf').value,
-    email:     document.getElementById('em').value,
-    telefone:  document.getElementById('tel').value,
-    ensaio:    document.getElementById('ens-sel').value,
-    mensagem:  document.getElementById('msg').value
+  fetch(SHEETS, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({
+      nome:      document.getElementById('nm').value,
+      profissao: document.getElementById('pf').value,
+      email:     document.getElementById('em').value,
+      telefone:  document.getElementById('tel').value,
+      ensaio:    document.getElementById('ens-sel').value,
+      mensagem:  document.getElementById('msg').value
+    })
   }).then(() => {
     document.getElementById('frm').style.display = 'none';
     document.getElementById('ok').style.display  = 'block';
