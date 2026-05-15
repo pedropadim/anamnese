@@ -338,7 +338,7 @@ footer{background:var(--ink);padding:40px clamp(24px,5vw,80px)}
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-badge"><span class="badge-dot"></span><span class="badge-text">Saúde · São Paulo · 2026</span></div>
+  <div class="hero-badge"><span class="badge-dot"></span><span class="badge-text">Série inaugural · São Paulo · 2026</span></div>
   <h1 class="hero-h1"><strong>ANAMNESE</strong><span class="pill">01</span><br><span class="italic">Diagnóstico antes<br>da prescrição.</span></h1>
   <div class="hero-sub">
     <p class="hero-desc">Uma série de ensaios que analisa os mecanismos invisíveis do colapso na saúde pública brasileira — com rigor econômico, sem conforto intelectual.</p>
@@ -453,176 +453,313 @@ footer{background:var(--ink);padding:40px clamp(24px,5vw,80px)}
 </footer>
 
 <script>
-const SENHA='P@dim2026';
-const SHEETS='https://script.google.com/macros/s/AKfycbwWpvZQ0V6K6N_UJ3sWm6jMsHL9vB04G1KWQ2SUNM5pf9XtCrJsnSuPB-rI_pUtkdpG/exec';
-const KEY_E='anamnese_ensaios';
-const KEY_S='anamnese_stats';
-const KEY_SO='anamnese_sobre';
+const SENHA  = 'P@dim2026';
+const SHEETS = 'https://script.google.com/macros/s/AKfycbyekKo45xLqYlK2b9YBLCdM5egr9vAcBfFV7nxcjZkZAiBtZ5pkw9mt5t-NVilOlfvu/exec';
 
-const defaultEnsaios=[
+// ── Dados padrão ──────────────────────────────────────────────────────
+const defaultEnsaios = [
   {id:1,tag:'Alocação & Recursos',title:'Escassez Real ou Má Alocação?',sub:'As Duas Anatomias do Colapso na Saúde Pública',body:'Existe um procedimento que cura o AVC, é coberto pela ANS e aprovado pelo Ministério da Saúde — e foi realizado em menos de 0,35% dos pacientes que precisavam dele em 2024.',q:'Se o país sabe que o problema não é só dinheiro, por que continua debatendo apenas o orçamento?',url:'ensaio-01.html',published:true},
   {id:2,tag:'Política Antidrogas',title:'A Guerra Que Não Cura',sub:'Política Antidrogas, Economia do Narcotráfico e os Custos Silenciosos',body:'Em 2023, o mundo produziu mais cocaína do que em qualquer outro momento da história. Mais usuários. Mais lucro. Mais violência — tudo sob o regime de proibição mais rígido já criado.',q:'Quem se beneficia de uma guerra que declaradamente não funciona?',url:'ensaio-02.html',published:true},
   {id:3,tag:'Corrupção & Incentivos',title:'A Doença do Estado',sub:'Corrupção, Captura Política e os Custos Invisíveis à Saúde Pública',body:'140.000 crianças morrem todo ano no mundo por causas ligadas à corrupção em saúde. No Brasil, o setor concentra quase 70% de todos os esquemas de fraude descobertos pela CGU nos últimos 13 anos.',q:'Se punir os corruptos não muda o sistema, o que mudaria?',url:'ensaio-03.html',published:true},
   {id:4,tag:'Wellness & Desigualdade',title:'A Medicina do Espelho',sub:'Wellness, Medicalização do Corpo São e os Custos da Medicina de Alto Valor',body:'O mercado de wellness movimenta US$ 6,8 trilhões por ano — quatro vezes toda a indústria farmacêutica global. Seu cliente ideal não está doente. Nunca esteve. E esse é exatamente o problema.',q:'Quando a medicina virou produto para quem já é saudável, quem ficou sem médico?',url:'ensaio-04.html',published:true}
 ];
-const defaultStats={s1n:'04',s1l:'Ensaios na série',s2n:'0,35%',s2l:'pacientes tratados de AVC em 2024',s3n:'US$6.8T',s3l:'mercado de wellness por ano'};
-const defaultSobre={nome:'Dr. Pedro Antonio Padim',t1:'Neurocirurgião · Fellowship em Neurorradiologia Intervencionista',t2:'FMRP-USP · Santa Casa de Ribeirão Preto · Hospital 9 de Julho',lema:'Nosce te ipsum',bio:'"Sou médico neurocirurgião apaixonado pelos mistérios do cérebro e da consciência humana. Minha trajetória é marcada pela busca incessante da excelência, através da educação, da ciência e da experiência clínica."',tags:'Neurocirurgia,Bioética,Antropologia Médica,Filosofia,Saúde Pública',c1:'University of Toronto · St. Michael\'s Hospital — Research Fellowship em Cirurgia do Trauma (2013–2014). Cursou Bioética, Antropologia e Filosofia durante o intercâmbio.',c2:'Força Aérea Brasileira — 2º Tenente Médico. Atuação em localidades remotas, urgência e emergência sob pressão extrema.',c3:'Anamnese — A série nasce da tensão entre o que a medicina pode fazer e o que o sistema permite que ela faça.'};
+const defaultStats = {s1n:'04',s1l:'Ensaios na série',s2n:'0,35%',s2l:'pacientes tratados de AVC em 2024',s3n:'US$6.8T',s3l:'mercado de wellness por ano'};
+const defaultSobre = {nome:'Dr. Pedro Antonio Padim',t1:'Neurocirurgião · Fellowship em Neurorradiologia Intervencionista',t2:'FMRP-USP · Santa Casa de Ribeirão Preto · Hospital 9 de Julho',lema:'Nosce te ipsum',bio:'"Sou médico neurocirurgião apaixonado pelos mistérios do cérebro e da consciência humana. Minha trajetória é marcada pela busca incessante da excelência, através da educação, da ciência e da experiência clínica."',tags:'Neurocirurgia,Bioética,Antropologia Médica,Filosofia,Saúde Pública',c1:'University of Toronto · St. Michael\'s Hospital — Research Fellowship em Cirurgia do Trauma (2013–2014). Cursou Bioética, Antropologia e Filosofia durante o intercâmbio.',c2:'Força Aérea Brasileira — 2º Tenente Médico. Atuação em localidades remotas, urgência e emergência sob pressão extrema.',c3:'Anamnese — A série nasce da tensão entre o que a medicina pode fazer e o que o sistema permite que ela faça.'};
 
-function load(k,d){try{const s=localStorage.getItem(k);return s?JSON.parse(s):d}catch(e){return d}}
-function save(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+// ── Estado em memória ─────────────────────────────────────────────────
+let ensaios   = [...defaultEnsaios];
+let stats     = {...defaultStats};
+let sobre     = {...defaultSobre};
+let editingId = null;
 
-let ensaios=load(KEY_E,defaultEnsaios);
-let stats=load(KEY_S,defaultStats);
-let sobre=load(KEY_SO,defaultSobre);
-let editingId=null;
+// ── Comunicação com o Sheets ──────────────────────────────────────────
+function sheetsGet(action) {
+  const url = action ? SHEETS + '?action=' + action : SHEETS;
+  return fetch(url).then(r => r.json()).catch(() => null);
+}
+function sheetsPost(payload) {
+  return fetch(SHEETS, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify(payload)
+  }).catch(() => {});
+}
 
-/* ---- RENDER SITE ---- */
-function renderSite(){
+// ── Inicializar — carrega tudo do Sheets em paralelo ──────────────────
+function inicializar() {
+  Promise.all([
+    sheetsGet('ensaios'),
+    sheetsGet('stats'),
+    sheetsGet('sobre')
+  ]).then(([e, s, sb]) => {
+    if (Array.isArray(e) && e.length > 0)    ensaios = e;
+    if (s && typeof s === 'object' && s.s1n)  stats   = s;
+    if (sb && typeof sb === 'object' && sb.nome) sobre = sb;
+    renderSite();
+  }).catch(() => renderSite());
+}
+
+// ── Persistir no Sheets ───────────────────────────────────────────────
+function persistirEnsaios(msg) {
+  sheetsPost({action:'saveEnsaios', ensaios})
+    .then(() => showToast(msg || 'Salvo!'));
+}
+function persistirStats(msg) {
+  sheetsPost({action:'saveStats', stats})
+    .then(() => showToast(msg || 'Salvo!'));
+}
+function persistirSobre(msg) {
+  sheetsPost({action:'saveSobre', sobre})
+    .then(() => showToast(msg || 'Salvo!'));
+}
+
+// ── RENDER SITE ───────────────────────────────────────────────────────
+function renderSite() {
   // ensaios
-  const r=document.getElementById('ensaios-render');
-  const published=ensaios.filter(e=>e.published);
-  const pubIdx={}; published.forEach((e,i)=>{pubIdx[e.id]=i+1;});
-  r.innerHTML=published.map((e,i)=>`
-    <div class="card" onclick="location.href='${e.url||'ensaio-0'+(i+1)+'.html'}'">
-      <div class="card-top"><span class="card-num">Nº ${String(i+1).padStart(2,'0')}</span><div class="card-arr">→</div></div>
+  const published = ensaios.filter(e => e.published);
+  const r = document.getElementById('ensaios-render');
+  r.innerHTML = published.map((e, i) => `
+    <div class="card" onclick="location.href='${e.url || 'ensaio-0'+(i+1)+'.html'}'">
+      <div class="card-top">
+        <span class="card-num">Nº ${String(i+1).padStart(2,'0')}</span>
+        <div class="card-arr">→</div>
+      </div>
       <span class="card-tag">${e.tag}</span>
       <h2 class="card-title">${e.title}</h2>
       <p class="card-sub">${e.sub}</p>
       <p class="card-body">${e.body}</p>
       <p class="card-q">Pergunta que fica: <span>${e.q}</span></p>
     </div>`).join('');
-  const n=published.length;
-  document.getElementById('ensaios-count').textContent=n+' '+(n===1?'ensaio':'ensaios');
-  const sel=document.getElementById('ens-sel');
-  sel.innerHTML='<option value="">Comentário geral</option>'+published.map((e,i)=>`<option>${String(i+1).padStart(2,'0')} · ${e.title}</option>`).join('');
+  const n = published.length;
+  document.getElementById('ensaios-count').textContent = n + ' ' + (n === 1 ? 'ensaio' : 'ensaios');
+  const sel = document.getElementById('ens-sel');
+  sel.innerHTML = '<option value="">Comentário geral</option>' +
+    published.map((e,i) => `<option>${String(i+1).padStart(2,'0')} · ${e.title}</option>`).join('');
+
   // stats
-  document.getElementById('s1n-disp').textContent=stats.s1n;
-  document.getElementById('s1l-disp').textContent=stats.s1l;
-  document.getElementById('s2n-disp').textContent=stats.s2n;
-  document.getElementById('s2l-disp').textContent=stats.s2l;
-  document.getElementById('s3n-disp').textContent=stats.s3n;
-  document.getElementById('s3l-disp').textContent=stats.s3l;
+  document.getElementById('s1n-disp').textContent = stats.s1n;
+  document.getElementById('s1l-disp').textContent = stats.s1l;
+  document.getElementById('s2n-disp').textContent = stats.s2n;
+  document.getElementById('s2l-disp').textContent = stats.s2l;
+  document.getElementById('s3n-disp').textContent = stats.s3n;
+  document.getElementById('s3l-disp').textContent = stats.s3l;
+
   // sobre
-  const nome=sobre.nome||defaultSobre.nome;
-  const nomeLines=nome.split(' ');
-  const mid=Math.ceil(nomeLines.length/2);
-  document.getElementById('disp-nome').innerHTML=nomeLines.slice(0,mid).join(' ')+'<br>'+nomeLines.slice(mid).join(' ');
-  document.getElementById('disp-t1').textContent=sobre.t1||defaultSobre.t1;
-  document.getElementById('disp-t2').textContent=sobre.t2||defaultSobre.t2;
-  document.getElementById('disp-lema').textContent=sobre.lema||defaultSobre.lema;
-  document.getElementById('disp-bio').textContent=sobre.bio||defaultSobre.bio;
-  document.getElementById('disp-tags').innerHTML=(sobre.tags||defaultSobre.tags).split(',').map(t=>`<span class="sobre-tag-item">${t.trim()}</span>`).join('');
-  document.getElementById('disp-c1').innerHTML=sobre.c1||defaultSobre.c1;
-  document.getElementById('disp-c2').innerHTML=sobre.c2||defaultSobre.c2;
-  document.getElementById('disp-c3').innerHTML=sobre.c3||defaultSobre.c3;
+  const nome = sobre.nome || defaultSobre.nome;
+  const nomeLines = nome.split(' ');
+  const mid = Math.ceil(nomeLines.length / 2);
+  document.getElementById('disp-nome').innerHTML =
+    nomeLines.slice(0, mid).join(' ') + '<br>' + nomeLines.slice(mid).join(' ');
+  document.getElementById('disp-t1').textContent   = sobre.t1   || defaultSobre.t1;
+  document.getElementById('disp-t2').textContent   = sobre.t2   || defaultSobre.t2;
+  document.getElementById('disp-lema').textContent = sobre.lema || defaultSobre.lema;
+  document.getElementById('disp-bio').textContent  = sobre.bio  || defaultSobre.bio;
+  document.getElementById('disp-tags').innerHTML   = (sobre.tags || defaultSobre.tags)
+    .split(',').map(t => `<span class="sobre-tag-item">${t.trim()}</span>`).join('');
+  document.getElementById('disp-c1').innerHTML = sobre.c1 || defaultSobre.c1;
+  document.getElementById('disp-c2').innerHTML = sobre.c2 || defaultSobre.c2;
+  document.getElementById('disp-c3').innerHTML = sobre.c3 || defaultSobre.c3;
 }
 
-/* ---- PAINEL ---- */
-function renderPanel(){
-  document.getElementById('e-list').innerHTML=ensaios.map((e,i)=>`
+// ── RENDER PAINEL ─────────────────────────────────────────────────────
+function renderPanel() {
+  document.getElementById('e-list').innerHTML = ensaios.map((e, i) => `
     <div class="e-row">
       <span class="e-num">${String(i+1).padStart(2,'0')}</span>
       <span class="e-ttl">${e.title}</span>
       <span class="e-tag">${e.tag}</span>
-      ${e.url?`<span class="e-tag" style="color:var(--lime-dark);background:rgba(200,241,53,.15);border:none;font-family:monospace">${e.url}</span>`:'<span class="e-tag" style="color:#e24b4a;background:rgba(226,75,74,.1);border:none">sem link</span>'}
+      ${e.url
+        ? `<span class="e-tag" style="color:var(--lime-dark);background:rgba(200,241,53,.15);border:none;font-family:monospace">${e.url}</span>`
+        : `<span class="e-tag" style="color:#e24b4a;background:rgba(226,75,74,.1);border:none">sem link</span>`}
       <div class="e-btns">
-        <label class="e-toggle" title="${e.published?'Publicado — clique para ocultar':'Rascunho — clique para publicar'}">
+        <label class="e-toggle" title="${e.published?'Publicado':'Rascunho'}">
           <input type="checkbox" onchange="togglePublished(${e.id},this.checked)" ${e.published?'checked':''} style="display:none">
-          <span style="font-size:11px;font-weight:700;padding:5px 10px;border-radius:7px;border:1px solid;cursor:pointer;transition:all .2s;${e.published?'background:rgba(200,241,53,.2);color:var(--lime-dark);border-color:var(--lime-dark)':'background:rgba(226,75,74,.08);color:#e24b4a;border-color:#e24b4a'}">${e.published?'● Publicado':'○ Rascunho'}</span>
+          <span style="font-size:11px;font-weight:700;padding:5px 10px;border-radius:7px;border:1px solid;cursor:pointer;transition:all .2s;${e.published
+            ? 'background:rgba(200,241,53,.2);color:var(--lime-dark);border-color:var(--lime-dark)'
+            : 'background:rgba(226,75,74,.08);color:#e24b4a;border-color:#e24b4a'}">
+            ${e.published ? '● Publicado' : '○ Rascunho'}
+          </span>
         </label>
         <button class="eb" onclick="editEnsaio(${e.id})">Editar</button>
         <button class="eb del" onclick="delEnsaio(${e.id})">Remover</button>
       </div>
     </div>`).join('');
+
   // stats
-  document.getElementById('s1n').value=stats.s1n;
-  document.getElementById('s1l').value=stats.s1l;
-  document.getElementById('s2n').value=stats.s2n;
-  document.getElementById('s2l').value=stats.s2l;
-  document.getElementById('s3n').value=stats.s3n;
-  document.getElementById('s3l').value=stats.s3l;
+  document.getElementById('s1n').value = stats.s1n;
+  document.getElementById('s1l').value = stats.s1l;
+  document.getElementById('s2n').value = stats.s2n;
+  document.getElementById('s2l').value = stats.s2l;
+  document.getElementById('s3n').value = stats.s3n;
+  document.getElementById('s3l').value = stats.s3l;
+
   // sobre
-  document.getElementById('sb-nome').value=sobre.nome||defaultSobre.nome;
-  document.getElementById('sb-lema').value=sobre.lema||defaultSobre.lema;
-  document.getElementById('sb-t1').value=sobre.t1||defaultSobre.t1;
-  document.getElementById('sb-t2').value=sobre.t2||defaultSobre.t2;
-  document.getElementById('sb-bio').value=sobre.bio||defaultSobre.bio;
-  document.getElementById('sb-tags').value=sobre.tags||defaultSobre.tags;
-  document.getElementById('sb-c1').value=sobre.c1||defaultSobre.c1;
-  document.getElementById('sb-c2').value=sobre.c2||defaultSobre.c2;
-  document.getElementById('sb-c3').value=sobre.c3||defaultSobre.c3;
+  document.getElementById('sb-nome').value = sobre.nome  || defaultSobre.nome;
+  document.getElementById('sb-lema').value = sobre.lema  || defaultSobre.lema;
+  document.getElementById('sb-t1').value   = sobre.t1    || defaultSobre.t1;
+  document.getElementById('sb-t2').value   = sobre.t2    || defaultSobre.t2;
+  document.getElementById('sb-bio').value  = sobre.bio   || defaultSobre.bio;
+  document.getElementById('sb-tags').value = sobre.tags  || defaultSobre.tags;
+  document.getElementById('sb-c1').value   = sobre.c1    || defaultSobre.c1;
+  document.getElementById('sb-c2').value   = sobre.c2    || defaultSobre.c2;
+  document.getElementById('sb-c3').value   = sobre.c3    || defaultSobre.c3;
 }
 
-/* login */
-function openAdmin(){document.getElementById('login-overlay').classList.add('open');setTimeout(()=>document.getElementById('login-input').focus(),80)}
-function closeLogin(){document.getElementById('login-overlay').classList.remove('open');document.getElementById('login-input').value='';document.getElementById('login-err').style.display='none'}
-function doLogin(){
-  if(document.getElementById('login-input').value===SENHA){closeLogin();renderPanel();document.getElementById('admin-overlay').classList.add('open')}
-  else{document.getElementById('login-err').style.display='block';document.getElementById('login-input').value='';document.getElementById('login-input').focus()}
+// ── LOGIN ─────────────────────────────────────────────────────────────
+function openAdmin() {
+  document.getElementById('login-overlay').classList.add('open');
+  setTimeout(() => document.getElementById('login-input').focus(), 80);
 }
-function closePanel(){document.getElementById('admin-overlay').classList.remove('open');cancelForm()}
-function switchTab(t,el){
-  document.querySelectorAll('.adm-tab').forEach(b=>b.classList.remove('active'));el.classList.add('active');
-  document.querySelectorAll('.adm-sec').forEach(s=>s.classList.remove('active'));document.getElementById('tab-'+t).classList.add('active');
+function closeLogin() {
+  document.getElementById('login-overlay').classList.remove('open');
+  document.getElementById('login-input').value = '';
+  document.getElementById('login-err').style.display = 'none';
 }
-
-/* ensaios */
-function newEnsaio(){
-  editingId=null;
-  ['f-tag','f-title','f-sub','f-body','f-q','f-url'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('f-pub').checked=false;
-  document.getElementById('e-form-lbl').textContent='Novo ensaio';
-  document.getElementById('e-div').style.display='block';document.getElementById('e-form').style.display='block';document.getElementById('f-tag').focus();
+function doLogin() {
+  if (document.getElementById('login-input').value === SENHA) {
+    closeLogin();
+    renderPanel();
+    document.getElementById('admin-overlay').classList.add('open');
+  } else {
+    document.getElementById('login-err').style.display = 'block';
+    document.getElementById('login-input').value = '';
+    document.getElementById('login-input').focus();
+  }
 }
-function editEnsaio(id){
-  const e=ensaios.find(x=>x.id===id);if(!e)return;editingId=id;
-  document.getElementById('f-tag').value=e.tag;document.getElementById('f-title').value=e.title;
-  document.getElementById('f-sub').value=e.sub;document.getElementById('f-body').value=e.body;document.getElementById('f-q').value=e.q;document.getElementById('f-url').value=e.url||'';
-  document.getElementById('f-pub').checked=!!e.published;
-  document.getElementById('e-form-lbl').textContent='Editar ensaio';
-  document.getElementById('e-div').style.display='block';document.getElementById('e-form').style.display='block';document.getElementById('f-tag').focus();
+function closePanel() {
+  document.getElementById('admin-overlay').classList.remove('open');
+  cancelForm();
 }
-function saveEnsaio(){
-  const tag=document.getElementById('f-tag').value.trim();
-  const title=document.getElementById('f-title').value.trim();
-  if(!title||!tag){showToast('Preencha ao menos o tema e o título');return}
-  const obj={tag,title,sub:document.getElementById('f-sub').value.trim(),body:document.getElementById('f-body').value.trim(),q:document.getElementById('f-q').value.trim(),url:document.getElementById('f-url').value.trim(),published:document.getElementById('f-pub').checked};
-  if(editingId){const i=ensaios.findIndex(x=>x.id===editingId);ensaios[i]={...ensaios[i],...obj};showToast('Ensaio atualizado!')}
-  else{ensaios.push({id:Date.now(),...obj});showToast('Ensaio adicionado como rascunho!')}
-  save(KEY_E,ensaios);renderSite();renderPanel();cancelForm();
-}
-function delEnsaio(id){
-  if(!confirm('Remover este ensaio?'))return;
-  ensaios=ensaios.filter(e=>e.id!==id);save(KEY_E,ensaios);renderSite();renderPanel();showToast('Ensaio removido');
-}
-function cancelForm(){editingId=null;document.getElementById('e-form').style.display='none';document.getElementById('e-div').style.display='none'}
-function togglePublished(id,val){
-  const i=ensaios.findIndex(x=>x.id===id);if(i<0)return;
-  ensaios[i].published=val;
-  save(KEY_E,ensaios);renderSite();renderPanel();
-  showToast(val?'Ensaio publicado!':'Ensaio movido para rascunho');
+function switchTab(t, el) {
+  document.querySelectorAll('.adm-tab').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.adm-sec').forEach(s => s.classList.remove('active'));
+  document.getElementById('tab-' + t).classList.add('active');
 }
 
-/* stats */
-function saveStats(){
-  stats={s1n:document.getElementById('s1n').value.trim()||'04',s1l:document.getElementById('s1l').value.trim()||'Ensaios na série',s2n:document.getElementById('s2n').value.trim()||'0,35%',s2l:document.getElementById('s2l').value.trim(),s3n:document.getElementById('s3n').value.trim(),s3l:document.getElementById('s3l').value.trim()};
-  save(KEY_S,stats);renderSite();showToast('Estatísticas atualizadas!');
+// ── ENSAIOS ───────────────────────────────────────────────────────────
+function newEnsaio() {
+  editingId = null;
+  ['f-tag','f-title','f-sub','f-body','f-q','f-url'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('f-pub').checked = false;
+  document.getElementById('e-form-lbl').textContent = 'Novo ensaio';
+  document.getElementById('e-div').style.display = 'block';
+  document.getElementById('e-form').style.display = 'block';
+  document.getElementById('f-tag').focus();
+}
+function editEnsaio(id) {
+  const e = ensaios.find(x => x.id === id); if (!e) return;
+  editingId = id;
+  document.getElementById('f-tag').value   = e.tag;
+  document.getElementById('f-title').value = e.title;
+  document.getElementById('f-sub').value   = e.sub;
+  document.getElementById('f-body').value  = e.body;
+  document.getElementById('f-q').value     = e.q;
+  document.getElementById('f-url').value   = e.url || '';
+  document.getElementById('f-pub').checked = !!e.published;
+  document.getElementById('e-form-lbl').textContent = 'Editar ensaio';
+  document.getElementById('e-div').style.display = 'block';
+  document.getElementById('e-form').style.display = 'block';
+  document.getElementById('f-tag').focus();
+}
+function saveEnsaio() {
+  const tag   = document.getElementById('f-tag').value.trim();
+  const title = document.getElementById('f-title').value.trim();
+  if (!title || !tag) { showToast('Preencha ao menos o tema e o título'); return; }
+  const obj = {
+    tag, title,
+    sub:       document.getElementById('f-sub').value.trim(),
+    body:      document.getElementById('f-body').value.trim(),
+    q:         document.getElementById('f-q').value.trim(),
+    url:       document.getElementById('f-url').value.trim(),
+    published: document.getElementById('f-pub').checked
+  };
+  if (editingId) {
+    const i = ensaios.findIndex(x => x.id === editingId);
+    ensaios[i] = {...ensaios[i], ...obj};
+  } else {
+    ensaios.push({id: Date.now(), ...obj});
+  }
+  renderSite(); renderPanel(); cancelForm();
+  persistirEnsaios(editingId ? 'Ensaio atualizado!' : 'Ensaio adicionado!');
+}
+function delEnsaio(id) {
+  if (!confirm('Remover este ensaio?')) return;
+  ensaios = ensaios.filter(e => e.id !== id);
+  renderSite(); renderPanel();
+  persistirEnsaios('Ensaio removido');
+}
+function cancelForm() {
+  editingId = null;
+  document.getElementById('e-form').style.display = 'none';
+  document.getElementById('e-div').style.display  = 'none';
+}
+function togglePublished(id, val) {
+  const i = ensaios.findIndex(x => x.id === id); if (i < 0) return;
+  ensaios[i].published = val;
+  renderSite(); renderPanel();
+  persistirEnsaios(val ? 'Ensaio publicado!' : 'Movido para rascunho');
 }
 
-/* sobre */
-function saveSobre(){
-  sobre={nome:document.getElementById('sb-nome').value.trim()||defaultSobre.nome,lema:document.getElementById('sb-lema').value.trim()||defaultSobre.lema,t1:document.getElementById('sb-t1').value.trim()||defaultSobre.t1,t2:document.getElementById('sb-t2').value.trim()||defaultSobre.t2,bio:document.getElementById('sb-bio').value.trim()||defaultSobre.bio,tags:document.getElementById('sb-tags').value.trim()||defaultSobre.tags,c1:document.getElementById('sb-c1').value.trim()||defaultSobre.c1,c2:document.getElementById('sb-c2').value.trim()||defaultSobre.c2,c3:document.getElementById('sb-c3').value.trim()||defaultSobre.c3};
-  save(KEY_SO,sobre);renderSite();showToast('Seção Sobre atualizada!');
+// ── STATS ─────────────────────────────────────────────────────────────
+function saveStats() {
+  stats = {
+    s1n: document.getElementById('s1n').value.trim() || defaultStats.s1n,
+    s1l: document.getElementById('s1l').value.trim() || defaultStats.s1l,
+    s2n: document.getElementById('s2n').value.trim() || defaultStats.s2n,
+    s2l: document.getElementById('s2l').value.trim() || defaultStats.s2l,
+    s3n: document.getElementById('s3n').value.trim() || defaultStats.s3n,
+    s3l: document.getElementById('s3l').value.trim() || defaultStats.s3l
+  };
+  renderSite();
+  persistirStats('Estatísticas atualizadas!');
 }
 
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
-function submitForm(e){
-  e.preventDefault();var b=document.querySelector('.f-btn');b.textContent='Enviando...';b.disabled=true;
-  fetch(SHEETS,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:document.getElementById('nm').value,profissao:document.getElementById('pf').value,email:document.getElementById('em').value,telefone:document.getElementById('tel').value,ensaio:document.getElementById('ens-sel').value,mensagem:document.getElementById('msg').value})})
-  .then(()=>{document.getElementById('frm').style.display='none';document.getElementById('ok').style.display='block'}).catch(()=>{document.getElementById('frm').style.display='none';document.getElementById('ok').style.display='block'});
+// ── SOBRE ─────────────────────────────────────────────────────────────
+function saveSobre() {
+  sobre = {
+    nome: document.getElementById('sb-nome').value.trim() || defaultSobre.nome,
+    lema: document.getElementById('sb-lema').value.trim() || defaultSobre.lema,
+    t1:   document.getElementById('sb-t1').value.trim()   || defaultSobre.t1,
+    t2:   document.getElementById('sb-t2').value.trim()   || defaultSobre.t2,
+    bio:  document.getElementById('sb-bio').value.trim()  || defaultSobre.bio,
+    tags: document.getElementById('sb-tags').value.trim() || defaultSobre.tags,
+    c1:   document.getElementById('sb-c1').value.trim()   || defaultSobre.c1,
+    c2:   document.getElementById('sb-c2').value.trim()   || defaultSobre.c2,
+    c3:   document.getElementById('sb-c3').value.trim()   || defaultSobre.c3
+  };
+  renderSite();
+  persistirSobre('Seção Sobre atualizada!');
 }
 
-renderSite();
+// ── FORMULÁRIO DE CONTATO ─────────────────────────────────────────────
+function submitForm(e) {
+  e.preventDefault();
+  const b = document.querySelector('.f-btn');
+  b.textContent = 'Enviando...'; b.disabled = true;
+  sheetsPost({
+    nome:      document.getElementById('nm').value,
+    profissao: document.getElementById('pf').value,
+    email:     document.getElementById('em').value,
+    telefone:  document.getElementById('tel').value,
+    ensaio:    document.getElementById('ens-sel').value,
+    mensagem:  document.getElementById('msg').value
+  }).then(() => {
+    document.getElementById('frm').style.display = 'none';
+    document.getElementById('ok').style.display  = 'block';
+  });
+}
+
+// ── TOAST ─────────────────────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ── INICIAR ───────────────────────────────────────────────────────────
+inicializar();
 </script>
 </body>
 </html>
