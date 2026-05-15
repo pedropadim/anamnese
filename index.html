@@ -165,7 +165,8 @@ footer{background:var(--ink);padding:40px clamp(24px,5vw,80px)}
 .e-num{font-size:11px;font-weight:700;color:var(--mid);min-width:26px}
 .e-ttl{flex:1;font-size:13px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .e-tag{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mid);background:var(--white);border:1px solid var(--faint);padding:2px 8px;border-radius:100px;white-space:nowrap}
-.e-btns{display:flex;gap:5px;flex-shrink:0}
+.e-btns{display:flex;align-items:center;gap:5px;flex-shrink:0}
+.e-toggle{cursor:pointer;display:inline-flex}
 .eb{font-family:var(--cab);font-size:11px;font-weight:600;border:1px solid var(--faint);background:none;padding:5px 10px;border-radius:7px;cursor:pointer;transition:all .15s;color:var(--mid)}
 .eb:hover{border-color:var(--ink);color:var(--ink)}
 .eb.del:hover{border-color:#e24b4a;color:#e24b4a}
@@ -257,6 +258,15 @@ footer{background:var(--ink);padding:40px clamp(24px,5vw,80px)}
             <input id="f-url" placeholder="Ex: ensaio-01.html" style="font-family:monospace;letter-spacing:.02em">
             <small style="font-size:10px;color:var(--mid);margin-top:5px;display:block">Nome do arquivo HTML aberto ao clicar no card (ex: ensaio-01.html)</small>
           </div>
+          <div class="af" style="flex-direction:row;align-items:center;gap:10px;padding:14px 16px;background:var(--off);border-radius:10px;border:1px solid var(--faint)">
+            <label class="pub-toggle" style="display:flex;align-items:center;gap:10px;cursor:pointer;width:100%">
+              <input type="checkbox" id="f-pub" style="width:18px;height:18px;accent-color:var(--lime-dark);cursor:pointer;flex-shrink:0">
+              <span style="display:flex;flex-direction:column;gap:2px">
+                <strong style="font-size:12px;font-weight:700;color:var(--ink)">Publicar na página</strong>
+                <span style="font-size:11px;color:var(--mid)">Desmarcado = rascunho (não aparece no site)</span>
+              </span>
+            </label>
+          </div>
           <div class="adm-actions">
             <button class="adm-save" onclick="saveEnsaio()">Salvar</button>
             <button class="adm-cancel-btn" onclick="cancelForm()">Cancelar</button>
@@ -328,7 +338,7 @@ footer{background:var(--ink);padding:40px clamp(24px,5vw,80px)}
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-badge"><span class="badge-dot"></span><span class="badge-text">Saúde · São Paulo · 2026</span></div>
+  <div class="hero-badge"><span class="badge-dot"></span><span class="badge-text">Série inaugural · São Paulo · 2026</span></div>
   <h1 class="hero-h1"><strong>ANAMNESE</strong><span class="pill">01</span><br><span class="italic">Diagnóstico antes<br>da prescrição.</span></h1>
   <div class="hero-sub">
     <p class="hero-desc">Uma série de ensaios que analisa os mecanismos invisíveis do colapso na saúde pública brasileira — com rigor econômico, sem conforto intelectual.</p>
@@ -450,10 +460,10 @@ const KEY_S='anamnese_stats';
 const KEY_SO='anamnese_sobre';
 
 const defaultEnsaios=[
-  {id:1,tag:'Alocação & Recursos',title:'Escassez Real ou Má Alocação?',sub:'As Duas Anatomias do Colapso na Saúde Pública',body:'Existe um procedimento que cura o AVC, é coberto pela ANS e aprovado pelo Ministério da Saúde — e foi realizado em menos de 0,35% dos pacientes que precisavam dele em 2024.',q:'Se o país sabe que o problema não é só dinheiro, por que continua debatendo apenas o orçamento?',url:'ensaio-01.html'},
-  {id:2,tag:'Política Antidrogas',title:'A Guerra Que Não Cura',sub:'Política Antidrogas, Economia do Narcotráfico e os Custos Silenciosos',body:'Em 2023, o mundo produziu mais cocaína do que em qualquer outro momento da história. Mais usuários. Mais lucro. Mais violência — tudo sob o regime de proibição mais rígido já criado.',q:'Quem se beneficia de uma guerra que declaradamente não funciona?',url:'ensaio-02.html'},
-  {id:3,tag:'Corrupção & Incentivos',title:'A Doença do Estado',sub:'Corrupção, Captura Política e os Custos Invisíveis à Saúde Pública',body:'140.000 crianças morrem todo ano no mundo por causas ligadas à corrupção em saúde. No Brasil, o setor concentra quase 70% de todos os esquemas de fraude descobertos pela CGU nos últimos 13 anos.',q:'Se punir os corruptos não muda o sistema, o que mudaria?',url:'ensaio-03.html'},
-  {id:4,tag:'Wellness & Desigualdade',title:'A Medicina do Espelho',sub:'Wellness, Medicalização do Corpo São e os Custos da Medicina de Alto Valor',body:'O mercado de wellness movimenta US$ 6,8 trilhões por ano — quatro vezes toda a indústria farmacêutica global. Seu cliente ideal não está doente. Nunca esteve. E esse é exatamente o problema.',q:'Quando a medicina virou produto para quem já é saudável, quem ficou sem médico?',url:'ensaio-04.html'}
+  {id:1,tag:'Alocação & Recursos',title:'Escassez Real ou Má Alocação?',sub:'As Duas Anatomias do Colapso na Saúde Pública',body:'Existe um procedimento que cura o AVC, é coberto pela ANS e aprovado pelo Ministério da Saúde — e foi realizado em menos de 0,35% dos pacientes que precisavam dele em 2024.',q:'Se o país sabe que o problema não é só dinheiro, por que continua debatendo apenas o orçamento?',url:'ensaio-01.html',published:true},
+  {id:2,tag:'Política Antidrogas',title:'A Guerra Que Não Cura',sub:'Política Antidrogas, Economia do Narcotráfico e os Custos Silenciosos',body:'Em 2023, o mundo produziu mais cocaína do que em qualquer outro momento da história. Mais usuários. Mais lucro. Mais violência — tudo sob o regime de proibição mais rígido já criado.',q:'Quem se beneficia de uma guerra que declaradamente não funciona?',url:'ensaio-02.html',published:true},
+  {id:3,tag:'Corrupção & Incentivos',title:'A Doença do Estado',sub:'Corrupção, Captura Política e os Custos Invisíveis à Saúde Pública',body:'140.000 crianças morrem todo ano no mundo por causas ligadas à corrupção em saúde. No Brasil, o setor concentra quase 70% de todos os esquemas de fraude descobertos pela CGU nos últimos 13 anos.',q:'Se punir os corruptos não muda o sistema, o que mudaria?',url:'ensaio-03.html',published:true},
+  {id:4,tag:'Wellness & Desigualdade',title:'A Medicina do Espelho',sub:'Wellness, Medicalização do Corpo São e os Custos da Medicina de Alto Valor',body:'O mercado de wellness movimenta US$ 6,8 trilhões por ano — quatro vezes toda a indústria farmacêutica global. Seu cliente ideal não está doente. Nunca esteve. E esse é exatamente o problema.',q:'Quando a medicina virou produto para quem já é saudável, quem ficou sem médico?',url:'ensaio-04.html',published:true}
 ];
 const defaultStats={s1n:'04',s1l:'Ensaios na série',s2n:'0,35%',s2l:'pacientes tratados de AVC em 2024',s3n:'US$6.8T',s3l:'mercado de wellness por ano'};
 const defaultSobre={nome:'Dr. Pedro Antonio Padim',t1:'Neurocirurgião · Fellowship em Neurorradiologia Intervencionista',t2:'FMRP-USP · Santa Casa de Ribeirão Preto · Hospital 9 de Julho',lema:'Nosce te ipsum',bio:'"Sou médico neurocirurgião apaixonado pelos mistérios do cérebro e da consciência humana. Minha trajetória é marcada pela busca incessante da excelência, através da educação, da ciência e da experiência clínica."',tags:'Neurocirurgia,Bioética,Antropologia Médica,Filosofia,Saúde Pública',c1:'University of Toronto · St. Michael\'s Hospital — Research Fellowship em Cirurgia do Trauma (2013–2014). Cursou Bioética, Antropologia e Filosofia durante o intercâmbio.',c2:'Força Aérea Brasileira — 2º Tenente Médico. Atuação em localidades remotas, urgência e emergência sob pressão extrema.',c3:'Anamnese — A série nasce da tensão entre o que a medicina pode fazer e o que o sistema permite que ela faça.'};
@@ -470,7 +480,9 @@ let editingId=null;
 function renderSite(){
   // ensaios
   const r=document.getElementById('ensaios-render');
-  r.innerHTML=ensaios.map((e,i)=>`
+  const published=ensaios.filter(e=>e.published);
+  const pubIdx={}; published.forEach((e,i)=>{pubIdx[e.id]=i+1;});
+  r.innerHTML=published.map((e,i)=>`
     <div class="card" onclick="location.href='${e.url||'ensaio-0'+(i+1)+'.html'}'">
       <div class="card-top"><span class="card-num">Nº ${String(i+1).padStart(2,'0')}</span><div class="card-arr">→</div></div>
       <span class="card-tag">${e.tag}</span>
@@ -479,10 +491,10 @@ function renderSite(){
       <p class="card-body">${e.body}</p>
       <p class="card-q">Pergunta que fica: <span>${e.q}</span></p>
     </div>`).join('');
-  const n=ensaios.length;
+  const n=published.length;
   document.getElementById('ensaios-count').textContent=n+' '+(n===1?'ensaio':'ensaios');
   const sel=document.getElementById('ens-sel');
-  sel.innerHTML='<option value="">Comentário geral</option>'+ensaios.map((e,i)=>`<option>${String(i+1).padStart(2,'0')} · ${e.title}</option>`).join('');
+  sel.innerHTML='<option value="">Comentário geral</option>'+published.map((e,i)=>`<option>${String(i+1).padStart(2,'0')} · ${e.title}</option>`).join('');
   // stats
   document.getElementById('s1n-disp').textContent=stats.s1n;
   document.getElementById('s1l-disp').textContent=stats.s1l;
@@ -514,6 +526,10 @@ function renderPanel(){
       <span class="e-tag">${e.tag}</span>
       ${e.url?`<span class="e-tag" style="color:var(--lime-dark);background:rgba(200,241,53,.15);border:none;font-family:monospace">${e.url}</span>`:'<span class="e-tag" style="color:#e24b4a;background:rgba(226,75,74,.1);border:none">sem link</span>'}
       <div class="e-btns">
+        <label class="e-toggle" title="${e.published?'Publicado — clique para ocultar':'Rascunho — clique para publicar'}">
+          <input type="checkbox" onchange="togglePublished(${e.id},this.checked)" ${e.published?'checked':''} style="display:none">
+          <span style="font-size:11px;font-weight:700;padding:5px 10px;border-radius:7px;border:1px solid;cursor:pointer;transition:all .2s;${e.published?'background:rgba(200,241,53,.2);color:var(--lime-dark);border-color:var(--lime-dark)':'background:rgba(226,75,74,.08);color:#e24b4a;border-color:#e24b4a'}">${e.published?'● Publicado':'○ Rascunho'}</span>
+        </label>
         <button class="eb" onclick="editEnsaio(${e.id})">Editar</button>
         <button class="eb del" onclick="delEnsaio(${e.id})">Remover</button>
       </div>
@@ -554,6 +570,7 @@ function switchTab(t,el){
 function newEnsaio(){
   editingId=null;
   ['f-tag','f-title','f-sub','f-body','f-q','f-url'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-pub').checked=false;
   document.getElementById('e-form-lbl').textContent='Novo ensaio';
   document.getElementById('e-div').style.display='block';document.getElementById('e-form').style.display='block';document.getElementById('f-tag').focus();
 }
@@ -561,6 +578,7 @@ function editEnsaio(id){
   const e=ensaios.find(x=>x.id===id);if(!e)return;editingId=id;
   document.getElementById('f-tag').value=e.tag;document.getElementById('f-title').value=e.title;
   document.getElementById('f-sub').value=e.sub;document.getElementById('f-body').value=e.body;document.getElementById('f-q').value=e.q;document.getElementById('f-url').value=e.url||'';
+  document.getElementById('f-pub').checked=!!e.published;
   document.getElementById('e-form-lbl').textContent='Editar ensaio';
   document.getElementById('e-div').style.display='block';document.getElementById('e-form').style.display='block';document.getElementById('f-tag').focus();
 }
@@ -568,9 +586,9 @@ function saveEnsaio(){
   const tag=document.getElementById('f-tag').value.trim();
   const title=document.getElementById('f-title').value.trim();
   if(!title||!tag){showToast('Preencha ao menos o tema e o título');return}
-  const obj={tag,title,sub:document.getElementById('f-sub').value.trim(),body:document.getElementById('f-body').value.trim(),q:document.getElementById('f-q').value.trim(),url:document.getElementById('f-url').value.trim()};
+  const obj={tag,title,sub:document.getElementById('f-sub').value.trim(),body:document.getElementById('f-body').value.trim(),q:document.getElementById('f-q').value.trim(),url:document.getElementById('f-url').value.trim(),published:document.getElementById('f-pub').checked};
   if(editingId){const i=ensaios.findIndex(x=>x.id===editingId);ensaios[i]={...ensaios[i],...obj};showToast('Ensaio atualizado!')}
-  else{ensaios.push({id:Date.now(),...obj,url:'ensaio-0'+(ensaios.length+1)+'.html'});showToast('Ensaio adicionado!')}
+  else{ensaios.push({id:Date.now(),...obj});showToast('Ensaio adicionado como rascunho!')}
   save(KEY_E,ensaios);renderSite();renderPanel();cancelForm();
 }
 function delEnsaio(id){
@@ -578,6 +596,12 @@ function delEnsaio(id){
   ensaios=ensaios.filter(e=>e.id!==id);save(KEY_E,ensaios);renderSite();renderPanel();showToast('Ensaio removido');
 }
 function cancelForm(){editingId=null;document.getElementById('e-form').style.display='none';document.getElementById('e-div').style.display='none'}
+function togglePublished(id,val){
+  const i=ensaios.findIndex(x=>x.id===id);if(i<0)return;
+  ensaios[i].published=val;
+  save(KEY_E,ensaios);renderSite();renderPanel();
+  showToast(val?'Ensaio publicado!':'Ensaio movido para rascunho');
+}
 
 /* stats */
 function saveStats(){
