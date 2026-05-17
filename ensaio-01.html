@@ -5,86 +5,107 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Escassez Real ou Má Alocação? · Anamnese</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@300;400;500;700;800;900&family=Instrument+Serif:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@500;700;800;900&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--white:#FFFFFF;--off:#F8F8F6;--ink:#0D0D0D;--mid:#6B6B6B;--faint:#E4E4E0;--lime:#C8F135;--lime-dark:#8AAF00;--cab:'Cabinet Grotesk',sans-serif;--inst:'Instrument Serif',serif}
+:root{
+  --white:#FFFFFF;--off:#F8F8F6;--ink:#0D0D0D;--mid:#5A5A5A;--faint:#E4E4E0;
+  --lime:#C8F135;--lime-dark:#8AAF00;
+  --cab:'Cabinet Grotesk',sans-serif;--body:'Lora',Georgia,serif;
+}
 html{scroll-behavior:smooth}
-body{background:var(--white);color:var(--ink);font-family:var(--cab);-webkit-font-smoothing:antialiased}
+body{background:var(--white);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
 nav{border-bottom:1px solid var(--faint);padding:0 clamp(24px,5vw,80px);position:sticky;top:0;background:rgba(255,255,255,.97);backdrop-filter:blur(8px);z-index:100}
 .nav-i{max-width:1280px;margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between}
 .logo{font-family:var(--cab);font-weight:900;font-size:17px;letter-spacing:-.03em;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:8px}
 .logo-dot{width:8px;height:8px;background:var(--lime);border-radius:50%}
 .nav-links{display:flex;align-items:center;gap:8px}
-.nav-links a{font-size:14px;font-weight:500;color:var(--mid);text-decoration:none;padding:8px 16px;border-radius:100px;transition:all .18s}
+.nav-links a{font-family:var(--cab);font-size:14px;font-weight:500;color:var(--mid);text-decoration:none;padding:8px 16px;border-radius:100px;transition:all .18s}
 .nav-links a:hover{background:var(--off);color:var(--ink)}
 .nav-btn{background:var(--ink)!important;color:var(--white)!important;font-weight:700!important}
-.essay-hero{padding:clamp(60px,8vw,120px) clamp(24px,5vw,80px) clamp(40px,5vw,80px);max-width:1280px;margin:0 auto}
-.essay-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:32px}
-.essay-num{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--mid)}
-.essay-tag-pill{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--lime-dark);background:rgba(200,241,53,.18);padding:4px 12px;border-radius:100px}
-.essay-title{font-family:var(--cab);font-weight:900;font-size:clamp(40px,6vw,88px);line-height:.95;letter-spacing:-.04em;color:var(--ink);margin-bottom:16px}
-.essay-subtitle{font-family:var(--inst);font-style:italic;font-size:clamp(18px,2vw,26px);color:var(--mid);margin-bottom:16px;line-height:1.4}
-.essay-approach{font-size:13px;color:var(--mid);font-style:italic;margin-bottom:40px}
-.essay-meta{display:flex;align-items:center;gap:20px;padding-top:32px;border-top:1px solid var(--faint);flex-wrap:wrap}
-.essay-meta span{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
-.divider{width:1px;height:16px;background:var(--faint)}
-.essay-body{max-width:760px;margin:0 auto;padding:0 clamp(24px,5vw,80px) clamp(60px,8vw,120px)}
-.resumo-box{background:var(--off);border-radius:16px;padding:32px 36px;margin-bottom:56px;border-left:3px solid var(--lime)}
-.resumo-box h3{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--mid);margin-bottom:16px}
-.resumo-box p{font-family:var(--inst);font-size:16px;line-height:1.75;color:#2a2a2a}
-.kw{margin-top:16px;font-size:13px;color:var(--mid)}
-h2.sec{font-family:var(--cab);font-size:clamp(22px,2.5vw,30px);font-weight:800;letter-spacing:-.03em;color:var(--ink);margin:60px 0 20px;line-height:1.15;padding-top:16px;border-top:1px solid var(--faint)}
-h3.subsec{font-family:var(--cab);font-size:clamp(17px,1.8vw,21px);font-weight:700;color:var(--ink);margin:36px 0 14px;letter-spacing:-.02em}
-.essay-body p{font-family:var(--inst);font-size:clamp(17px,1.5vw,19px);line-height:1.85;color:#2a2a2a;margin-bottom:22px}
-.pull{border-left:3px solid var(--lime);padding:20px 28px;margin:40px 0;background:var(--off);border-radius:0 12px 12px 0}
-.pull p{font-family:var(--inst);font-style:italic;font-size:clamp(16px,1.6vw,20px);line-height:1.55;color:var(--ink);margin:0!important}
-.pull cite{display:block;margin-top:10px;font-family:var(--cab);font-size:12px;font-style:normal;font-weight:600;letter-spacing:.06em;color:var(--mid)}
-.prop-box{background:var(--ink);color:var(--white);border-radius:14px;padding:24px 28px;margin:28px 0}
-.prop-box p{font-family:var(--cab);font-size:15px;line-height:1.6;color:var(--white);margin:0!important}
-.prop-box strong{color:var(--lime)}
-.refs-box{background:var(--off);border-radius:16px;padding:32px 36px;margin-top:56px}
-.refs-box h3{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--mid);margin-bottom:20px}
-.refs-box p{font-family:var(--cab);font-size:12px;line-height:1.7;color:var(--mid);margin-bottom:6px!important}
-.essay-nav-strip{background:var(--ink);padding:48px clamp(24px,5vw,80px)}
-.essay-nav-strip-i{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.essay-nav-strip a{text-decoration:none;display:flex;flex-direction:column;gap:6px}
-.nav-label{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.4)}
-.nav-name{font-family:var(--cab);font-size:clamp(15px,1.5vw,20px);font-weight:800;color:var(--white);letter-spacing:-.02em;transition:color .2s}
-.essay-nav-strip a:hover .nav-name{color:var(--lime)}
+
+.hero{padding:clamp(60px,8vw,120px) clamp(24px,5vw,80px) clamp(40px,5vw,72px);max-width:1280px;margin:0 auto}
+.eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:32px}
+.ey-num{font-family:var(--cab);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--mid)}
+.ey-tag{font-family:var(--cab);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--lime-dark);background:rgba(200,241,53,.18);padding:4px 12px;border-radius:100px}
+h1.essay-title{font-family:var(--cab);font-weight:900;font-size:clamp(40px,6vw,88px);line-height:.95;letter-spacing:-.04em;color:var(--ink);margin-bottom:16px}
+.essay-subtitle{font-family:var(--body);font-style:italic;font-size:clamp(18px,2vw,24px);color:var(--mid);margin-bottom:10px;line-height:1.4}
+.essay-approach{font-family:var(--cab);font-size:13px;color:var(--mid);margin-bottom:36px}
+.essay-meta{display:flex;align-items:center;gap:20px;padding-top:28px;border-top:1px solid var(--faint);flex-wrap:wrap}
+.essay-meta span{font-family:var(--cab);font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+.m-div{width:1px;height:14px;background:var(--faint)}
+
+.essay-body{max-width:700px;margin:0 auto;padding:0 clamp(24px,5vw,80px) clamp(60px,8vw,120px)}
+
+.resumo{background:var(--off);border-radius:16px;padding:32px 36px;margin-bottom:56px;border-left:3px solid var(--lime)}
+.resumo-label{font-family:var(--cab);font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--mid);margin-bottom:14px}
+.resumo p{font-family:var(--body);font-size:16px;line-height:1.8;color:#2a2a2a;margin-bottom:14px}
+.resumo p:last-child{margin-bottom:0}
+.kw{font-size:13.5px;color:var(--mid);font-style:italic}
+
+h2.sec{font-family:var(--cab);font-size:clamp(20px,2.2vw,26px);font-weight:800;letter-spacing:-.025em;color:var(--ink);margin:64px 0 20px;line-height:1.15;padding-top:20px;border-top:1px solid var(--faint)}
+h3.subsec{font-family:var(--cab);font-size:clamp(16px,1.6vw,19px);font-weight:700;color:var(--ink);margin:40px 0 14px;letter-spacing:-.015em}
+
+.essay-body p{font-family:var(--body);font-size:clamp(17px,1.5vw,19.5px);line-height:1.85;color:#1e1e1e;margin-bottom:24px}
+
+.pull{border-left:3px solid var(--lime);padding:20px 28px;margin:44px 0;background:var(--off);border-radius:0 12px 12px 0}
+.pull p{font-family:var(--body);font-style:italic;font-size:clamp(17px,1.6vw,20px);line-height:1.6;color:var(--ink);margin:0!important}
+.pull cite{display:block;margin-top:12px;font-family:var(--cab);font-size:12px;font-style:normal;font-weight:600;letter-spacing:.06em;color:var(--mid)}
+
+.prop{background:var(--ink);border-radius:14px;padding:24px 28px;margin:20px 0}
+.prop p{font-family:var(--cab);font-size:15px;line-height:1.65;color:var(--white);margin:0!important}
+.prop strong{color:var(--lime)}
+
+.refs{background:var(--off);border-radius:16px;padding:32px 36px;margin-top:56px}
+.refs-label{font-family:var(--cab);font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--mid);margin-bottom:20px}
+.refs p{font-family:var(--body);font-size:13.5px;line-height:1.75;color:var(--mid);margin-bottom:10px!important}
+.refs p:last-child{margin-bottom:0!important}
+.refs a{color:var(--ink);word-break:break-all}
+
+.essay-nav{background:var(--ink);padding:48px clamp(24px,5vw,80px)}
+.essay-nav-i{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.essay-nav a{text-decoration:none;display:flex;flex-direction:column;gap:6px}
+.nav-lbl{font-family:var(--cab);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+.nav-nm{font-family:var(--cab);font-size:clamp(15px,1.5vw,20px);font-weight:800;color:var(--white);letter-spacing:-.02em;transition:color .2s}
+.essay-nav a:hover .nav-nm{color:var(--lime)}
 .nav-next{text-align:right}
+
 .contact-strip{padding:clamp(60px,8vw,100px) clamp(24px,5vw,80px);background:var(--off)}
 .contact-strip-i{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:start}
 .cs-badge{display:inline-flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--faint);border-radius:100px;padding:6px 14px 6px 8px;margin-bottom:20px}
 .badge-dot{width:6px;height:6px;background:var(--lime-dark);border-radius:50%}
-.badge-txt{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+.badge-txt{font-family:var(--cab);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
 .cs-h2{font-family:var(--cab);font-size:clamp(28px,3.5vw,48px);font-weight:900;line-height:.95;letter-spacing:-.04em;color:var(--ink);margin-bottom:16px}
-.cs-p{font-size:15px;line-height:1.7;color:var(--mid);margin-bottom:10px}
+.cs-p{font-family:var(--cab);font-size:15px;line-height:1.7;color:var(--mid);margin-bottom:10px}
 .cf{display:flex;flex-direction:column;gap:12px}
 .f2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .fg{display:flex;flex-direction:column;gap:5px}
-.fg label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+.fg label{font-family:var(--cab);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
 .fg input,.fg select,.fg textarea{font-family:var(--cab);font-size:14px;color:var(--ink);background:var(--white);border:1px solid var(--faint);border-radius:10px;padding:11px 14px;outline:none;transition:all .2s;-webkit-appearance:none}
 .fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--ink)}
 .fg textarea{resize:vertical;min-height:100px;line-height:1.6}
 .fg select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236B6B6B' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
-.f-note{font-size:11px;color:var(--mid);opacity:.7}
+.f-note{font-family:var(--cab);font-size:11px;color:var(--mid);opacity:.7}
 .f-btn{background:var(--ink);color:var(--white);font-family:var(--cab);font-size:13px;font-weight:700;padding:14px 28px;border:none;border-radius:100px;cursor:pointer;transition:all .2s;align-self:flex-start}
 .f-btn:hover{background:#222}
 .success-msg{display:none;background:var(--white);border:1px solid var(--faint);border-radius:14px;padding:24px 28px}
-.success-msg p:first-child{font-size:16px;font-weight:800;color:var(--ink);margin-bottom:6px!important}
-.success-msg p:last-child{font-size:14px;color:var(--mid)!important}
+.success-msg p:first-child{font-family:var(--cab);font-size:16px;font-weight:800;color:var(--ink);margin-bottom:6px!important}
+.success-msg p:last-child{font-family:var(--cab);font-size:14px;color:var(--mid)!important}
+
 footer{background:var(--ink);padding:36px clamp(24px,5vw,80px)}
 .footer-i{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
 .footer-brand{font-family:var(--cab);font-weight:900;font-size:14px;color:var(--white);display:flex;align-items:center;gap:8px}
 .footer-brand .dot{width:7px;height:7px;background:var(--lime);border-radius:50%}
-.footer-r p{font-size:12px;color:rgba(255,255,255,.3);line-height:1.9;text-align:right}
+.footer-r p{font-family:var(--cab);font-size:12px;color:rgba(255,255,255,.3);line-height:1.9;text-align:right}
 .footer-r a{color:var(--lime);text-decoration:none;font-weight:600}
+
 @media(max-width:860px){.contact-strip-i{grid-template-columns:1fr;gap:40px}.f2{grid-template-columns:1fr}}
 @media(max-width:580px){.nav-links a:not(.nav-btn){display:none}}
 </style>
 </head>
 <body>
+
 <nav>
   <div class="nav-i">
     <a href="index.html" class="logo"><span class="logo-dot"></span>Anamnese</a>
@@ -96,137 +117,228 @@ footer{background:var(--ink);padding:36px clamp(24px,5vw,80px)}
   </div>
 </nav>
 
-<section class="essay-hero">
-  <div class="essay-eyebrow">
-    <span class="essay-num">Ensaio Nº 01</span>
-    <span class="essay-tag-pill">Alocação &amp; Recursos</span>
+<section class="hero">
+  <div class="eyebrow">
+    <span class="ey-num">Ensaio Nº 01</span>
+    <span class="ey-tag">Alocação &amp; Recursos</span>
   </div>
   <h1 class="essay-title">Escassez Real<br>ou Má Alocação?</h1>
   <p class="essay-subtitle">As Duas Anatomias do Colapso na Saúde Pública</p>
   <p class="essay-approach">Uma abordagem transdisciplinar entre economia, sociologia e antropologia médica</p>
   <div class="essay-meta">
     <span>Pedro Antonio Padim</span>
-    <div class="divider"></div>
+    <div class="m-div"></div>
     <span>São Paulo, maio de 2026</span>
-    <div class="divider"></div>
+    <div class="m-div"></div>
     <span>Série Anamnese</span>
   </div>
 </section>
 
 <div class="essay-body">
 
-  <div class="resumo-box">
-    <h3>Resumo</h3>
-    <p>O presente ensaio investiga a distinção conceitual e empírica entre escassez real de recursos para a saúde e má alocação dos recursos disponíveis, tomando o sistema de saúde brasileiro — o SUS — como caso analítico privilegiado. A partir de uma revisão transdisciplinar que mobiliza a economia da saúde (Arrow, 1963; Sen, 1999; Cylus, Papanicolas e Smith, 2016), a sociologia das desigualdades (Bourdieu, 1986) e a antropologia médica estrutural (Farmer, 2006), o ensaio argumenta que a dicotomia entre as duas categorias é, em larga medida, uma falsa oposição: sistemas com subfinanciamento estrutural simultaneamente sofrem de ineficiência alocativa grave, tornando imperativo o diagnóstico diferencial rigoroso. O caso da trombectomia mecânica no AVE isquêmico agudo é utilizado como lente empírica para demonstrar como a existência legal de cobertura não se traduz em acesso universal, revelando os gargalos federativos, regulatórios e políticos que interpõem entre o recurso existente e o paciente que precisa dele.</p>
+  <div class="resumo">
+    <p class="resumo-label">Resumo</p>
+    <p>Este ensaio examina a diferença entre escassez real de recursos em saúde e má alocação dos recursos disponíveis, tomando o SUS como caso analítico. Com base em Arrow (1963), Sen (1999), Cylus, Papanicolas e Smith (2016), Bourdieu (1986) e Farmer (2006), o argumento é que a oposição entre as duas categorias é, em larga medida, falsa: sistemas com subfinanciamento estrutural têm, ao mesmo tempo, ineficiência alocativa grave, o que torna o diagnóstico diferencial indispensável. A trombectomia mecânica no AVE isquêmico agudo serve de caso empírico para mostrar como a cobertura legal não produz acesso universal, revelando os gargalos federativos, regulatórios e políticos entre o recurso existente e o paciente que precisa dele. A conclusão é que avanço tecnológico e científico sem reforma estrutural dos mecanismos de governança produz ganhos mínimos em populações historicamente marginalizadas.</p>
     <p class="kw"><strong>Palavras-chave:</strong> Economia da saúde; eficiência alocativa; Sistema Único de Saúde; ineficiência técnica; violência estrutural; trombectomia mecânica; subfinanciamento; emendas parlamentares.</p>
   </div>
 
   <h2 class="sec">1. Introdução: O Problema da Pergunta Errada</h2>
-  <p>Em debates sobre política de saúde, poucos erros são tão recorrentes e tão custosos quanto o de confundir o diagnóstico com o sintoma. A percepção mais imediata diante de um sistema de saúde que não entrega o que promete é que faltam recursos. É uma resposta intuitiva e, em parte, verdadeira — mas raramente suficiente. O inverso simétrico, a afirmação de que o problema é puramente de gestão e que o dinheiro existe mas é mal gasto, é igualmente redutor. A questão relevante não é escolher entre essas duas narrativas, mas compreender em que proporção, em que componentes do sistema e com que mecanismos causais cada uma delas opera.</p>
-  <p>O economista Kenneth Arrow, em seu artigo seminal de 1963 publicado no <em>American Economic Review</em>, demonstrou que o mercado de saúde é estruturalmente incapaz de alocar recursos de forma eficiente por razões intrínsecas: a assimetria de informação entre pacientes e provedores, a imprevisibilidade da necessidade de cuidados, a impossibilidade de estabelecer contratos completos para eventos futuros incertos e a natureza de bem público de diversas intervenções sanitárias. Essa constatação fundou o campo da economia da saúde e estabeleceu a premissa de que falhas de mercado no setor são a regra, não a exceção — criando a justificativa teórica para a intervenção estatal. Mas Arrow também deixou uma advertência: intervenções não-mercadológicas introduzem suas próprias ineficiências.</p>
-  <p>Mais de seis décadas depois, a questão permanece aberta e dramaticamente atual para o Brasil. O País possui o maior sistema de saúde universal do mundo em termos de extensão territorial, uma das mais altas cargas tributárias entre economias emergentes, e indicadores de saúde que não correspondem a nenhum desses números. Anualmente, cerca de 400.000 acidentes vasculares encefálicos ocorrem no Brasil; 80% dos pacientes dependem do SUS para seu atendimento. Existe tecnologia capaz de reverter o dano neurológico em parcela significativa desses casos, existe cobertura regulatória, existe profissional treinado — e ainda assim a esmagadora maioria não recebe o tratamento. Esse hiato não é pobreza: é uma forma específica e diagnosticável de falha sistêmica.</p>
-  <p>O presente ensaio propõe uma análise rigorosa dessas duas categorias — escassez e má alocação — à luz das contribuições da economia, da sociologia e da antropologia médica. O argumento central é que elas não são mutuamente exclusivas e que a opção política por um diagnóstico em detrimento do outro não é neutra: ela determina as soluções que se perseguem e, portanto, os problemas que permanecem sem solução.</p>
+
+  <p>Em debates sobre política de saúde, há um erro recorrente e custoso: confundir o diagnóstico com o sintoma. A percepção imediata diante de um sistema que não entrega o que promete é que faltam recursos. Resposta intuitiva e, em parte, verdadeira, mas raramente suficiente. A afirmação contrária, de que o problema é puramente de gestão e que o dinheiro existe mas é mal gasto, é igualmente redutora. A questão não é escolher entre essas duas narrativas: é entender em que proporção, em que componentes do sistema e com quais mecanismos causais cada uma opera.</p>
+
+  <p>Kenneth Arrow, em artigo de 1963 no <em>American Economic Review</em>, demonstrou que o mercado de saúde é estruturalmente incapaz de alocar recursos de forma eficiente: a assimetria de informação entre pacientes e provedores, a imprevisibilidade da necessidade de cuidados, a impossibilidade de contratos completos para eventos futuros incertos e a natureza de bem público de diversas intervenções sanitárias criam falhas de mercado que são a regra, não a exceção (Arrow, 1963). Daí a justificativa teórica para a intervenção estatal. Arrow também advertiu, no entanto, que intervenções não-mercadológicas introduzem suas próprias ineficiências.</p>
+
+  <p>Mais de seis décadas depois, a questão segue aberta para o Brasil. O país tem o maior sistema de saúde universal do mundo em extensão territorial, uma das maiores cargas tributárias entre economias emergentes, e indicadores de saúde que não correspondem a nenhum desses números. Cerca de 400.000 AVEs ocorrem anualmente no Brasil; 80% dos pacientes dependem do SUS (Martins et al., 2023). A tecnologia para reverter o dano neurológico em parcela significativa desses casos existe. A cobertura regulatória existe. Os profissionais treinados existem. A maioria não recebe o tratamento. Esse hiato não é pobreza: é uma falha sistêmica específica e diagnosticável.</p>
+
+  <p>O ensaio propõe uma análise dessas duas categorias — escassez e má alocação — a partir da economia, da sociologia e da antropologia médica. O argumento central é que elas não são mutuamente exclusivas e que a escolha política por um diagnóstico em detrimento do outro não é neutra: ela determina as soluções perseguidas e, portanto, os problemas que ficam sem solução.</p>
 
   <h2 class="sec">2. Fundamentos Econômicos: Eficiência Técnica e Eficiência Alocativa</h2>
+
   <h3 class="subsec">2.1 A distinção canônica</h3>
-  <p>A literatura em economia da saúde estabelece uma distinção fundamental entre dois tipos de ineficiência. A eficiência técnica refere-se à capacidade de maximizar os resultados de saúde para um dado conjunto de insumos, ou minimizar os insumos necessários para produzir um dado nível de resultados. A eficiência alocativa, por sua vez, diz respeito à questão mais profunda: dados os recursos disponíveis e seus custos relativos, o sistema está investindo nas intervenções corretas, na proporção correta, para as populações corretas?</p>
-  <p>Essa distinção, que pode parecer meramente técnica, tem consequências políticas de primeira ordem. Um sistema pode ser tecnicamente eficiente — produzir cirurgias cardíacas de alta complexidade com baixos índices de infecção hospitalar — e simultaneamente alocativamente ineficiente, caso invista nessas cirurgias em detrimento de atenção primária que reduziria a incidência das mesmas doenças cardiovasculares em primeiro lugar. O problema não é a qualidade do que se faz, mas a lógica do que se escolhe fazer.</p>
-  <p>A Organização Mundial da Saúde estimou, no seu Relatório Mundial de Saúde de 2010, que entre 20% e 40% de todo o gasto em saúde global é desperdiçado por ineficiências — um montante que à época correspondia a até US$ 1,5 trilhão anualmente. Estudos subsequentes do Institute for Health Metrics and Evaluation (IHME) desenvolveram métricas de ineficiência por país, medindo a diferença entre os anos de vida ajustados por saúde efetivamente alcançados e os que seriam alcançáveis com o mesmo nível de gasto. Essa abordagem de fronteira produção revela que o problema não é exclusivo de países pobres: economias de alta renda também exibem ineficiências expressivas.</p>
+
+  <p>A economia da saúde distingue dois tipos de ineficiência. A eficiência técnica diz respeito à capacidade de maximizar resultados de saúde para um dado conjunto de insumos, ou minimizar os insumos necessários para um dado nível de resultados. A eficiência alocativa coloca uma pergunta anterior: dados os recursos disponíveis e seus custos relativos, o sistema investe nas intervenções corretas, na proporção correta, para as populações corretas? (Cylus, Papanicolas e Smith, 2016; Palmer e Torgerson, 1999).</p>
+
+  <p>A distinção, aparentemente técnica, tem consequências políticas de primeira ordem. Um sistema pode ter baixo índice de infecção em cirurgias cardíacas de alta complexidade — eficiência técnica — e ao mesmo tempo alocar mal, investindo nessas cirurgias em detrimento da atenção primária que reduziria a incidência das mesmas doenças cardiovasculares. O problema não é a qualidade do que se faz, mas a lógica do que se escolhe fazer.</p>
+
+  <p>A OMS estimou, no Relatório Mundial de Saúde de 2010, que entre 20% e 40% de todo o gasto global em saúde é desperdiçado por ineficiências — o que à época correspondia a até US$ 1,5 trilhão por ano (OMS, 2010). Estudos do IHME desenvolveram métricas de ineficiência por país, medindo a diferença entre os anos de vida ajustados por saúde alcançados e os que seriam alcançáveis com o mesmo nível de gasto (IHME, 2025). O problema não é exclusivo de países pobres: economias de alta renda também exibem ineficiências expressivas. O que varia é a composição.</p>
 
   <h3 class="subsec">2.2 Escassez: uma categoria mais complexa do que parece</h3>
-  <p>A escassez de recursos em saúde é, em primeiro lugar, uma condição universal. Como observa a literatura de economia da saúde, nenhuma sociedade — independentemente de sua riqueza — pode financiar a totalidade das intervenções disponíveis para toda a população sem restrições. A escassez não é um defeito corrigível pelo crescimento econômico; é a condição estrutural que torna necessária a escolha — e, portanto, a política de saúde.</p>
-  <p>No entanto, há uma diferença qualitativa entre a escassez universal — inerente à condição de qualquer sistema de saúde — e o subfinanciamento crônico — que ocorre quando o nível de gasto público está sistematicamente abaixo do necessário para garantir cobertura universal efetiva. O Brasil se encontra nessa segunda condição. De acordo com dados do Tesouro Nacional e metodologia COFOG (2025), os gastos em saúde atingiram 5,03% do PIB em 2024. O Brasil é signatário do acordo da OPAS que prevê gasto público em saúde de 6% do PIB até 2027 — uma meta de cumprimento incerto.</p>
-  <p>A Emenda Constitucional 95/2016 (teto de gastos), ao congelar os gastos federais em saúde em termos reais por até vinte anos, transformou o piso constitucional em teto efetivo de despesas, retirando aproximadamente R$ 70 bilhões do SUS entre 2018 e 2022. Esse encolhimento fiscal ocorreu em paralelo com o envelhecimento da população, o aumento da prevalência de doenças crônicas e a incorporação de novas tecnologias ao rol de procedimentos cobertos — criando um hiato crescente entre demanda e capacidade de resposta.</p>
+
+  <p>A escassez de recursos em saúde é, antes de tudo, uma condição universal. Nenhuma sociedade, independentemente de sua riqueza, financia a totalidade das intervenções disponíveis para toda a população sem restrições (Begg, Fischer e Dornbusch, 2005; Briggs, 2014). A escassez não é um defeito corrigível pelo crescimento econômico; é a condição estrutural que torna necessária a escolha, e portanto a política de saúde.</p>
+
+  <p>Há, no entanto, diferença qualitativa entre a escassez universal, inerente a qualquer sistema de saúde, e o subfinanciamento crônico, que ocorre quando o gasto público está sistematicamente abaixo do necessário para garantir cobertura universal efetiva. O Brasil está na segunda situação. Os gastos em saúde atingiram 5,03% do PIB em 2024, incluindo gasto público e privado (Tesouro Nacional/COFOG, 2025). O gasto público federal, isoladamente, ficou em torno de 3,96% do PIB por anos, entre os mais baixos do mundo para países com sistema universal (IEPS/IBGE, 2022). O Brasil assinou o acordo da OPAS que prevê gasto público em saúde de 6% do PIB até 2027, meta de cumprimento incerto.</p>
+
+  <p>A Emenda Constitucional 95/2016 congelou os gastos federais em saúde em termos reais por até vinte anos, transformando o piso constitucional em teto efetivo de despesas e retirando aproximadamente R$ 70 bilhões do SUS entre 2018 e 2022 (Agência Gov, 2024). Esse encolhimento fiscal ocorreu junto com o envelhecimento da população, o aumento de doenças crônicas e a incorporação de novas tecnologias ao rol de procedimentos cobertos, ampliando o hiato entre demanda e capacidade de resposta. O subfinanciamento brasileiro não é residual nem conjuntural: é uma escolha política inscrita na arquitetura fiscal do Estado.</p>
 
   <h3 class="subsec">2.3 O argumento da má alocação</h3>
-  <p>A contraproposta ao argumento do subfinanciamento é frequentemente apresentada sob a forma de um diagnóstico de gestão: o problema não seria a quantidade de recursos, mas sua utilização. Esse argumento tem fundamento empírico. Pesquisa publicada no SciELO sobre municípios fluminenses encontrou que a eficiência média dos serviços primários de saúde era de 63% — o que implica ineficiência de 37% — e que nos serviços secundários e terciários a eficiência média era de apenas 29%.</p>
-  <p>A questão não é se essas ineficiências existem no Brasil — evidentemente existem —, mas se elas explicam, por si sós, o hiato de cobertura observado. A resposta da literatura é negativa. O CONASS, em publicação de 2024 dedicada à avaliação da eficiência do gasto público em saúde no SUS, argumenta que a dicotomia entre financiamento e gestão é uma <em>falsa dicotomia</em>: grande parte dos problemas de gestão decorrem da restrição orçamentária, e não o inverso. A causalidade, portanto, não é unidirecional.</p>
+
+  <p>A contraposição ao argumento do subfinanciamento costuma ser apresentada como diagnóstico de gestão: o problema não seria a quantidade de recursos, mas sua utilização. O argumento tem base empírica. Pesquisa publicada no SciELO sobre municípios fluminenses encontrou eficiência média de 63% nos serviços primários de saúde, o que implica ineficiência de 37%, e eficiência média de apenas 29% nos serviços secundários e terciários, indicando espaço considerável para melhorar resultados com os mesmos recursos (SciELO Brasil, 2021).</p>
+
+  <p>Estudos comparativos do FMI (Grigoli e Ley, 2012) e da OCDE indicam que ineficiências no gasto em saúde aparecem em economias emergentes e desenvolvidas. As mais comuns: procedimentos de compra deficientes, alta despesa com medicamentos de referência em detrimento de genéricos, absenteísmo de trabalhadores de saúde, mix inadequado de profissionais e vazamentos orçamentários por corrupção e desperdício (Sciencedirect, 2024; IMF, 2013). A questão não é se essas ineficiências existem no Brasil — existem. A questão é se elas explicam, por si sós, o hiato de cobertura observado.</p>
+
+  <p>A resposta da literatura é negativa. O CONASS argumenta, em publicação de 2024, que a dicotomia entre financiamento e gestão é falsa: boa parte dos problemas de gestão decorre da restrição orçamentária, não o contrário. Em sistemas cronicamente subfinanciados, gestores são forçados a fazer escolhas alocativas sob pressão extrema, sem margem para planejamento de médio e longo prazo — o que gera ineficiência por definição. A causalidade não é unidirecional.</p>
 
   <h2 class="sec">3. A Dimensão Sociológica: Capital, Habitus e Reprodução das Desigualdades em Saúde</h2>
+
   <h3 class="subsec">3.1 Bourdieu e o acesso diferencial ao cuidado</h3>
-  <p>A sociologia de Pierre Bourdieu oferece uma chave analítica essencial para compreender por que a má alocação de recursos em saúde não é apenas um problema técnico de gestão, mas um fenômeno socialmente estruturado. Em sua teoria do capital (Bourdieu, 1986), o sociólogo francês identificou quatro formas de capital — econômico, cultural, social e simbólico — cuja distribuição desigual na sociedade determina as posições relativas dos indivíduos em diferentes campos, incluindo o campo da saúde.</p>
-  <p>O acesso diferencial ao cuidado de saúde não depende apenas da disponibilidade formal de serviços, mas da capacidade dos indivíduos de navegá-los. Pesquisas aplicando o framework bourdieusiano à utilização de serviços de saúde demonstram que o capital social — entendido como a rede de relações que um indivíduo pode mobilizar — determina a velocidade e a qualidade do acesso a cuidados especializados, ao fornecer informação, contornar filas e obter recomendações de prestadores de qualidade.</p>
-  <p>O efeito agregado desse mecanismo é que, mesmo em sistemas universais, o acesso efetivo não é igualitário. Populações com maior estoque de capitais simbólico, social e cultural conseguem extrair do sistema público de saúde um conjunto de serviços muito superior ao de populações em situação de vulnerabilidade — e isso independentemente do volume agregado de recursos disponíveis.</p>
+
+  <p>A sociologia de Pierre Bourdieu mostra por que a má alocação de recursos em saúde não é apenas um problema técnico de gestão, mas um fenômeno socialmente estruturado. Em sua teoria do capital (Bourdieu, 1986), ele identificou quatro formas de capital — econômico, cultural, social e simbólico — cuja distribuição desigual determina as posições dos indivíduos em diferentes campos, incluindo o da saúde.</p>
+
+  <p>O acesso ao cuidado de saúde não depende apenas da disponibilidade formal de serviços, mas da capacidade de navegá-los. Pesquisas que aplicam o framework bourdieusiano mostram que o capital social — a rede de relações que um indivíduo pode mobilizar — determina a velocidade e a qualidade do acesso a cuidados especializados, ao fornecer informação, contornar filas e obter recomendações de prestadores de qualidade (Song, 2011, citado em Shil, 2020). O capital cultural, por sua vez, influi na capacidade de compreender diagnósticos, negociar com profissionais e aderir a tratamentos complexos.</p>
+
+  <p>O efeito agregado é que, mesmo em sistemas universais, o acesso efetivo não é igualitário. Populações com maior estoque de capitais simbólico, social e cultural conseguem extrair do sistema público serviços muito superiores aos obtidos por populações em situação de vulnerabilidade — independentemente do volume total de recursos disponíveis. A má alocação não ocorre apenas nas salas de reunião dos ministérios; ela se reproduz cotidianamente na interação entre pacientes e sistemas.</p>
+
+  <h3 class="subsec">3.2 A armadilha da medicalização seletiva</h3>
+
+  <p>Bourdieu permite entender um fenômeno específico das distorções alocativas em saúde: o sistema tende a investir de forma desproporcional em intervenções de alta complexidade tecnológica, de visibilidade política e de prestígio simbólico elevado, em detrimento de intervenções de atenção básica, preventivas e comunitárias, cuja efetividade em escala populacional é consistentemente superior em termos de custo-benefício.</p>
+
+  <p>Esse fenômeno não é acidental. A estrutura de incentivos do campo da saúde recompensa a produção de procedimentos de alta complexidade com prestígio (capital simbólico) e receita (capital econômico), enquanto a atenção primária permanece subvalorizada — financeiramente e em termos de reconhecimento profissional. O resultado é um padrão de investimento que replica, na saúde pública, a mesma lógica de reprodução das desigualdades que Bourdieu identificou no campo educacional.</p>
 
   <h2 class="sec">4. A Dimensão Antropológica: Violência Estrutural e Patologias do Poder</h2>
-  <p>O médico e antropólogo Paul Farmer, cofundador do Partners in Health e Professor de Antropologia Médica em Harvard, desenvolveu ao longo de três décadas um framework que radicaliza e aprofunda o diagnóstico sociológico: o conceito de violência estrutural. Para Farmer, a violência estrutural não é uma metáfora retórica, mas uma descrição precisa de como arranjos sociais — pobreza, racismo, desigualdade de gênero, exclusão geográfica — causam dano físico às populações sobre as quais incidem.</p>
+
+  <p>Paul Farmer, médico e antropólogo, cofundador do Partners in Health e professor de Antropologia Médica em Harvard, desenvolveu ao longo de três décadas o conceito de violência estrutural (Farmer et al., 2006). Para Farmer, a violência estrutural não é metáfora: é uma descrição precisa de como arranjos sociais — pobreza, racismo, desigualdade de gênero, exclusão geográfica — causam dano físico às populações sobre as quais incidem (Farmer, 2005; Holmes et al., 2024).</p>
 
   <div class="pull">
     <p>"Structural violence is one way of describing social arrangements that put individuals and populations in harm's way. The arrangements are structural because they are embedded in the political and economic organization of our social world; they are violent because they cause injury to people."</p>
-    <cite>— Paul Farmer et al., PLOS Medicine, 2006</cite>
+    <cite>— Farmer et al., PLOS Medicine, 2006, p. 1686</cite>
   </div>
 
-  <p>Esse quadro teórico tem implicações diretas para a questão que este ensaio examina. A ausência de acesso a tratamentos eficazes — como a trombectomia mecânica para o AVE isquêmico — não é, para Farmer, um fenômeno neutro de distribuição de escassez. É a materialização de uma escolha política: a decisão, implícita ou explícita, de não reorganizar os recursos disponíveis para que determinadas populações recebam o cuidado ao qual têm direito formal.</p>
-  <p>A articulação entre Farmer e Sen é aqui reveladora. Amartya Sen, ao desenvolver sua abordagem das capacidades (Capability Approach), argumentou que o desenvolvimento humano não deve ser avaliado pelo volume de recursos disponíveis para os indivíduos, mas pela capacidade efetiva que eles possuem de transformar esses recursos em realizações concretas. Aplicada à saúde, a abordagem de Sen revela que a presença nominal de um procedimento na tabela do SUS não implica acesso real ao mesmo.</p>
+  <p>Aplicado ao debate sobre alocação, o argumento de Farmer é direto: a ausência de acesso a tratamentos eficazes como a trombectomia mecânica não é distribuição neutra de escassez. É a materialização de uma escolha política — a decisão, implícita ou explícita, de não reorganizar os recursos disponíveis para que determinadas populações recebam o cuidado a que têm direito formal. A violência não está no indivíduo que não recebe o tratamento; está na estrutura que torna sua exclusão possível e, em certa medida, invisível.</p>
+
+  <p>A escassez percebida é, frequentemente, uma escassez construída — produzida por escolhas de prioridade que refletem hierarquias de valor implícitas na sociedade. Quando um sistema decide, por décadas, não implantar centros de trombectomia em regiões periféricas ou não treinar profissionais em número suficiente para um procedimento coberto por lei, isso não é consequência neutra da insuficiência de recursos: é violência distribuída através de mecanismos institucionais (Farmer, 2005; NEJM, 2022).</p>
+
+  <p>A articulação com Sen é reveladora. Ao desenvolver sua abordagem das capacidades (<em>Capability Approach</em>), Amartya Sen argumentou que o desenvolvimento humano não deve ser avaliado pelo volume de recursos disponíveis, mas pela capacidade efetiva de transformá-los em realizações concretas — em <em>"beings and doings"</em> (Sen, 1979; IEP, 2024). Aplicada à saúde, essa abordagem mostra que a presença nominal de um procedimento na tabela do SUS não implica acesso real. Entre o recurso e a realização há uma cadeia de fatores de conversão — logística, informação, capacidade instalada, poder de negociação — que distribui de forma radicalmente desigual a capacidade de transformar cobertura formal em cuidado efetivo.</p>
 
   <h2 class="sec">5. O Caso Empírico: Trombectomia Mecânica no Brasil</h2>
+
   <h3 class="subsec">5.1 O procedimento e sua evidência</h3>
-  <p>A trombectomia mecânica (TM) para o acidente vascular encefálico isquêmico por oclusão de grande vaso representa uma das mais expressivas evoluções terapêuticas da neurologia moderna. O ensaio RESILIENT, conduzido em centros brasileiros do SUS e publicado no <em>New England Journal of Medicine</em> em 2020, demonstrou que pacientes submetidos ao procedimento tiveram odds ratio de 2,28 para melhor distribuição funcional em 90 dias (IC95% 1,41–3,69; p=0,001), com 35,1% dos pacientes do grupo intervenção alcançando ausência de déficit neurológico significativo versus 20,0% no grupo controle. O ensaio foi interrompido precocemente por eficácia — sinal de resultado tão robusto que continuar randomizando seria antiético.</p>
-  <p>O procedimento não é experimental, tampouco restrito a países ricos. O ensaio RESILIENT foi realizado no SUS, demonstrando factibilidade em contexto público brasileiro. Médicos com formação para o procedimento existem no Brasil. A tecnologia necessária está disponível no mercado nacional. A cobertura pela ANS estava prevista antes mesmo da aprovação formal pelo Ministério da Saúde.</p>
+
+  <p>A trombectomia mecânica (TM) para o AVE isquêmico por oclusão de grande vaso é um dos avanços terapêuticos mais sólidos da neurologia dos últimos anos. O ensaio RESILIENT, conduzido em centros brasileiros do SUS e publicado no <em>New England Journal of Medicine</em> em 2020, demonstrou odds ratio de 2,28 para melhor distribuição funcional em 90 dias (IC95% 1,41–3,69; p=0,001), com 35,1% dos pacientes do grupo intervenção sem déficit neurológico significativo, contra 20,0% no grupo controle (NEJM, 2020). O ensaio foi interrompido precocemente por eficácia — sinal de resultado tão robusto que continuar randomizando seria antiético.</p>
+
+  <p>O procedimento não é experimental. O RESILIENT foi realizado no SUS, comprovando factibilidade em contexto público brasileiro. Médicos com formação existem no Brasil. A tecnologia está disponível no mercado nacional. A cobertura pela ANS estava prevista antes mesmo da aprovação formal pelo Ministério da Saúde.</p>
 
   <h3 class="subsec">5.2 A trajetória burocrática: uma década de atraso</h3>
-  <p>Apesar da evidência acumulada desde os estudos internacionais de 2015 e do próprio RESILIENT, o Ministério da Saúde só publicou a Portaria 1.996/2023 em novembro de 2023, adicionando formalmente a TM ao rol de procedimentos cobertos pelo SUS — com apenas 12 centros públicos habilitados de início para um país de dimensões continentais e 400.000 AVEs por ano. Os dados do DataSUS confirmam a escala do problema: em 2023, apenas 36 trombectomias foram realizadas no SUS; em 2024, 759 — um crescimento expressivo em termos relativos, mas correspondente a <strong>menos de 0,35% das hospitalizações por AVE isquêmico no mesmo ano</strong>.</p>
-  <p>Para colocar esse número em perspectiva: estimativas conservadoras sugerem que entre 10% e 20% dos pacientes com AVE isquêmico têm oclusão de grande vaso e poderiam ser elegíveis para trombectomia dentro da janela terapêutica. Em uma população de 220.000 AVEs isquêmicos anuais, isso implicaria uma necessidade potencial de 22.000 a 44.000 procedimentos por ano. A diferença entre o potencial e o realizado não é uma questão de escassez absoluta de procedimentos: é uma questão de capacidade instalada, regionalização de serviços, logística de transferência interhospitalar e estrutura de incentivos.</p>
+
+  <p>Com toda a evidência acumulada desde os estudos internacionais de 2015 e o próprio RESILIENT, o Ministério da Saúde publicou a Portaria 1.996/2023 apenas em novembro de 2023, adicionando formalmente a TM ao rol de procedimentos do SUS — com apenas 12 centros públicos habilitados de início, para um país continental com 400.000 AVEs por ano (World Stroke Organization, 2023; Martins et al., 2023). Os dados do DataSUS confirmam a escala do problema: em 2023, o SUS realizou 36 trombectomias; em 2024, 759 — crescimento expressivo em termos relativos, mas menos de 0,35% das hospitalizações por AVE isquêmico no mesmo ano (ScienceDirect, 2025).</p>
+
+  <p>Para situar o número: estimativas conservadoras indicam que entre 10% e 20% dos pacientes com AVE isquêmico têm oclusão de grande vaso e poderiam ser elegíveis para trombectomia dentro da janela terapêutica. Em uma base de 220.000 AVEs isquêmicos anuais, a necessidade potencial seria de 22.000 a 44.000 procedimentos por ano. A distância entre o potencial e o realizado não é escassez absoluta de procedimentos: é capacidade instalada insuficiente, ausência de regionalização de serviços, logística de transferência interhospitalar precária e estrutura de incentivos inadequada. Tudo isso é alocação, não volume total de recursos.</p>
+
+  <h3 class="subsec">5.3 As camadas do gargalo</h3>
+
+  <p>O hiato entre cobertura formal e acesso real à TM no Brasil não tem explicação única. Ospel et al. (2024), em revisão publicada na revista <em>Stroke</em> sobre desafios globais de implementação da trombectomia, identificam padrões de subuso em praticamente todos os sistemas de saúde, que variam desde falta absoluta de acesso até seleção restritiva de pacientes elegíveis por razões não-médicas. Para o Brasil, os obstáculos mapeados são: (a) centros habilitados concentrados nas capitais e grandes metrópoles; (b) ausência de redes regionalizadas de transferência ativadas a tempo; (c) protocolos de triagem pré-hospitalar não padronizados; (d) incentivo financeiro insuficiente para os centros que realizam o procedimento; e (e) ausência de sistemas de monitoramento e responsabilização por resultados.</p>
+
+  <p>Nenhum desses obstáculos é escassez absoluta de recursos. São todos expressões de escolhas alocativas — prioridades refletidas em onde se investe, o que se regula, o que se monitora e o que se deixa de fazer. Isso sugere que a solução não passa, principalmente, pela injeção de recursos adicionais, mas pela reorganização dos recursos existentes em torno de protocolos de acesso baseados em evidência.</p>
 
   <h2 class="sec">6. O Gargalo Político: Emendas Parlamentares e a Fragmentação Orçamentária</h2>
-  <p>Uma das mais importantes — e menos debatidas no registro acadêmico — manifestações de má alocação no SUS é o fenômeno das emendas parlamentares impositivas em saúde. A literatura disponível documenta uma transferência progressiva do poder alocativo do Ministério da Saúde para o Legislativo federal, com consequências estruturais para a coerência do sistema.</p>
-  <p>Em 2024, os recursos em emendas parlamentares para a saúde atingiram R$ 25,5 bilhões — o maior valor da série histórica — e a destinação para a Atenção Básica via emendas pode ter sido 71,9% superior aos recursos discricionários do próprio Ministério da Saúde para o mesmo fim. Entre 2014 e 2024, o volume de emendas no orçamento do Ministério da Saúde cresceu 383%, enquanto os recursos discricionários do ministério permaneceram estagnados ou declinaram em termos reais.</p>
-  <p>Esse deslocamento não é neutro: a lógica de alocação das emendas parlamentares individuais é estritamente eleitoral, desconectada dos instrumentos de gestão do SUS e das pactuações feitas nas Comissões Intergestores Tripartites (CIT). O resultado é uma maior fragmentação, menor previsibilidade e desigualdade sanitária entre municípios — que favorece aqueles com maior poder de negociação política, independentemente de suas necessidades epidemiológicas.</p>
 
-  <h2 class="sec">7. A Herança do Movimento Sanitarista</h2>
-  <p>Para compreender a profundidade do desafio atual, é necessário situar historicamente a arquitetura do SUS. O Movimento da Reforma Sanitária Brasileira, que culminou na VIII Conferência Nacional de Saúde de 1986 — presidida pelo sanitarista Sérgio Arouca, egresso da FMRP-USP — representou uma tentativa de construir política pública de saúde a partir de um diagnóstico honesto das determinantes sociais, econômicas e culturais da doença.</p>
+  <p>Uma das manifestações mais importantes — e menos debatidas academicamente — de má alocação no SUS é o fenômeno das emendas parlamentares impositivas em saúde. A literatura documenta uma transferência progressiva do poder alocativo do Ministério da Saúde para o Legislativo federal, com consequências estruturais para a coerência do sistema.</p>
+
+  <p>Em 2024, os recursos em emendas parlamentares para a saúde atingiram R$ 25,5 bilhões — o maior valor da série histórica. A destinação para a Atenção Básica via emendas foi 71,9% superior aos recursos discricionários do próprio Ministério para o mesmo fim; para a Assistência Hospitalar e Ambulatorial, o diferencial foi de 64% (IEPS, 2024). O orçamento federal de 2025 prevê aproximadamente R$ 50 bilhões em emendas parlamentares totais (Conjur, 2025).</p>
+
+  <p>Entre 2014 e 2024, o volume de emendas no orçamento do Ministério da Saúde cresceu 383%, enquanto os recursos discricionários do ministério estagnaram ou declinaram em termos reais (Brasil de Fato, 2026). A lógica de alocação das emendas individuais é estritamente eleitoral, desconectada dos instrumentos de gestão do SUS e das pactuações feitas nas Comissões Intergestores Tripartites (PMC, 2024; Agência Gov, 2024).</p>
+
+  <p>Pesquisa publicada no BMC por pesquisadores da UEL, IPEA e Fiocruz mostrou que o aumento do repasse de emendas favoreceu a redução da alocação de receitas municipais próprias na atenção primária — efeito de substituição perverso: municípios passam a depender do volume politicamente contingente das emendas em vez de consolidar fontes regulares de financiamento (Jornal da USP, 2024; PMC, 2024). O resultado é maior fragmentação, menor previsibilidade e desigualdade sanitária entre municípios, favorecendo os com maior poder de negociação política, independentemente das necessidades epidemiológicas.</p>
+
+  <p>No sentido bourdieusiano, o mecanismo é preciso: a distribuição de emendas favorece municípios e regiões com maior capital político e social — representação parlamentar mais expressiva, prefeitos com maior rede no Congresso, perfil populacional próximo das coalizões eleitorais dominantes. Municípios periféricos e populações marginalizadas ficam sistematicamente em desvantagem — não por falta de recursos no sistema, mas pela lógica de distribuição desses recursos.</p>
+
+  <h2 class="sec">7. A Herança do Movimento Sanitarista e os Limites da Reforma Institucional</h2>
+
+  <p>Para entender a profundidade do desafio atual, é preciso situar historicamente a arquitetura do SUS. O Movimento da Reforma Sanitária Brasileira, que culminou na VIII Conferência Nacional de Saúde de 1986 — presidida pelo sanitarista Sérgio Arouca, egresso da FMRP-USP — foi uma tentativa de construir política pública de saúde a partir de um diagnóstico honesto das determinantes sociais, econômicas e culturais da doença (BVS Arouca, 2023; Fiocruz CEE, 2026). O modelo não era um projeto técnico: era um projeto político com a premissa de que saúde é resultado do desenvolvimento econômico-social justo.</p>
 
   <div class="pull">
     <p>"Saúde não é simplesmente ausência de doenças, é muito mais que isso. É bem-estar mental, social, político. As sociedades criam ciclos que, ou são ciclos de miséria, ou são ciclos de desenvolvimento... Saúde é o resultado do desenvolvimento econômico-social justo."</p>
-    <cite>— Sérgio Arouca, VIII Conferência Nacional de Saúde, 1986</cite>
+    <cite>— Sérgio Arouca, abertura da VIII Conferência Nacional de Saúde, 1986</cite>
   </div>
 
-  <p>A Constituição de 1988, ao consagrar a saúde como direito de todos e dever do Estado, materializou esse projeto. O SUS, criado com os princípios de universalidade, integralidade e equidade, tornou-se o maior sistema universal de saúde do mundo em extensão territorial. Mas a Constituição não resolveu o problema da governança: ela criou um sistema descentralizado em um País federativo de alta heterogeneidade, sem resolver os incentivos políticos que distorcem a alocação.</p>
+  <p>A Constituição de 1988, ao consagrar a saúde como direito de todos e dever do Estado, materializou esse projeto. O SUS, criado com os princípios de universalidade, integralidade e equidade, é o maior sistema universal de saúde do mundo em extensão territorial. O movimento sanitarista demonstrou que é possível construir política de saúde a partir de diagnóstico rigoroso — e que esse diagnóstico, quando honesto, toca inevitavelmente em estruturas de poder.</p>
+
+  <p>Mas a Constituição não resolveu o problema da governança. Ela criou um sistema descentralizado em um país federativo de alta heterogeneidade, sem enfrentar os incentivos políticos que distorcem a alocação. A tensão entre o projeto universalista e a realidade da fragmentação orçamentária, da desigualdade regional de capacidade técnica e da captura política do orçamento da saúde organiza os debates de política sanitária brasileira até hoje.</p>
+
+  <p>Norman Daniels (2008), influenciado por Rawls, argumenta que sistemas de saúde justos devem garantir a todos o acesso a intervenções que protejam as oportunidades normais de vida — critério que o Brasil adota formalmente, mas que a realidade de acesso à TM para AVE mostra não estar efetivamente implementado para a maioria da população.</p>
 
   <h2 class="sec">8. Síntese Analítica: Um Modelo de Diagnóstico Diferencial</h2>
 
-  <div class="prop-box">
-    <p><strong>Primeira proposição:</strong> O Brasil apresenta subfinanciamento estrutural do gasto público em saúde, documentado pela comparação com outros sistemas universais e com os compromissos firmados pelo próprio País. Esse subfinanciamento não é residual — é o resultado de escolhas fiscais inscritas na arquitetura constitucional e infraconstitucional do Estado.</p>
+  <p>A revisão das seções anteriores permite formular o diagnóstico diferencial para a questão central em quatro proposições.</p>
+
+  <div class="prop">
+    <p><strong>Primeira:</strong> o Brasil tem subfinanciamento estrutural do gasto público em saúde, documentado pela comparação com outros sistemas universais e com os compromissos assumidos pelo próprio país. Não é residual: é resultado de escolhas fiscais inscritas na arquitetura constitucional e infraconstitucional do Estado, especialmente a partir de 2016.</p>
   </div>
-  <div class="prop-box">
-    <p><strong>Segunda proposição:</strong> Simultaneamente, o sistema exibe ineficiências alocativas graves, documentadas tanto no nível de eficiência dos gastos em atenção primária e especializada quanto na lógica de distribuição orçamentária via emendas parlamentares, que substitui critérios epidemiológicos por critérios eleitorais.</p>
+  <div class="prop">
+    <p><strong>Segunda:</strong> o sistema exibe ineficiências alocativas graves, documentadas tanto na eficiência dos gastos em atenção primária e especializada quanto na lógica de distribuição orçamentária via emendas parlamentares, que substitui critérios epidemiológicos por critérios eleitorais.</p>
   </div>
-  <div class="prop-box">
-    <p><strong>Terceira proposição:</strong> As duas condições não são independentes. O subfinanciamento cria o ambiente propício para a captura política do orçamento, pois em condições de escassez severa, os atores políticos com poder de influir sobre a alocação ganham espaço desproporcional.</p>
+  <div class="prop">
+    <p><strong>Terceira:</strong> as duas condições não são independentes. O subfinanciamento cria ambiente propício para a captura política do orçamento, pois em condições de escassez severa os atores políticos com poder de influir sobre a alocação ganham espaço desproporcional. A má alocação, por sua vez, agrava o subfinanciamento funcional: mesmo os recursos disponíveis não chegam a quem mais precisa.</p>
   </div>
-  <div class="prop-box">
-    <p><strong>Quarta proposição:</strong> A distinção entre as duas categorias não é abstrata — ela determina o diagnóstico e, portanto, as soluções buscadas. A política de saúde eficaz exige reconhecer ambas as dimensões e agir sobre elas simultaneamente.</p>
+  <div class="prop">
+    <p><strong>Quarta:</strong> a distinção entre as duas categorias não é abstrata — ela determina o diagnóstico e, portanto, as soluções buscadas. Quem acredita que o problema é apenas escassez demanda mais recursos sem questionar o mecanismo de alocação. Quem acredita que é apenas má alocação ignora a necessidade de financiamento adequado e pode usar o argumento da eficiência para justificar cortes. A política de saúde eficaz exige reconhecer ambas as dimensões e agir sobre elas ao mesmo tempo.</p>
   </div>
 
   <h2 class="sec">9. Conclusão: Diagnóstico Rigoroso como Condição para a Prescrição</h2>
-  <p>Retornando à metáfora fundante do projeto Anamnese: na prática médica, a anamnese precede a prescrição. Prescrever antes de diagnosticar não é apenas ineficiente — é perigoso. O diagnóstico errado produz o remédio errado, e o remédio errado, em sistemas complexos, pode agravar a doença que pretende curar.</p>
-  <p>O debate brasileiro sobre saúde pública sofre, há décadas, de duas prescrições prematuras e opostas. A primeira atribui o colapso exclusivamente ao subfinanciamento e demanda apenas mais recursos, sem questionar o destino que esses recursos teriam. A segunda atribui o colapso exclusivamente à ineficiência e à corrupção, propondo cortes e reformas gerenciais sem reconhecer que existe um piso de financiamento abaixo do qual nenhuma eficiência gerencial é capaz de produzir cobertura universal real.</p>
-  <p>A convergência da economia da saúde, da sociologia bourdieusiana e da antropologia médica de Farmer aponta para uma terceira via analítica: o problema brasileiro é um sistema com subfinanciamento estrutural que, nas condições de escassez que o subfinanciamento cria, desenvolveu mecanismos de alocação perversos, capturados por lógicas políticas e simbólicas que sistematicamente excluem as populações mais vulneráveis.</p>
-  <p>O caso da trombectomia é paradigmático precisamente porque não cabe em nenhuma das narrativas simples. Não é falta de dinheiro no sistema. Não é falta de tecnologia. Não é falta de evidência. Não é falta de cobertura legal. O que falta é a governança que converta todos esses elementos em acesso real — e essa governança não emerge espontaneamente: ela é um produto de escolhas políticas que ainda não foram feitas.</p>
 
-  <div class="refs-box">
-    <h3>Referências Bibliográficas Principais</h3>
+  <p>Na prática médica, a anamnese precede a prescrição. Prescrever sem diagnosticar não é apenas ineficiente: é perigoso. O diagnóstico errado produz o remédio errado, e o remédio errado, em sistemas complexos, pode agravar a doença que pretende curar.</p>
+
+  <p>O debate brasileiro sobre saúde pública sofre, há décadas, de duas prescrições prematuras e opostas. A primeira atribui o colapso exclusivamente ao subfinanciamento e demanda mais recursos sem questionar seu destino. A segunda atribui o colapso à ineficiência e à corrupção, propondo cortes e reformas gerenciais sem reconhecer que há um piso de financiamento abaixo do qual nenhuma eficiência gerencial produz cobertura universal real.</p>
+
+  <p>A convergência da economia da saúde, da sociologia bourdieusiana e da antropologia médica de Farmer aponta para uma terceira via analítica — não uma média entre os dois diagnósticos, mas uma síntese mais densa: o problema brasileiro é um sistema com subfinanciamento estrutural que, nas condições de escassez criadas por esse subfinanciamento, desenvolveu mecanismos de alocação perversos, capturados por lógicas políticas e simbólicas que sistematicamente excluem as populações mais vulneráveis.</p>
+
+  <p>O caso da trombectomia é paradigmático precisamente porque não cabe em nenhuma das narrativas simples. Não é falta de dinheiro no sistema: o SUS tem orçamento bilionário. Não é falta de tecnologia: o procedimento existe no Brasil. Não é falta de evidência: o RESILIENT foi publicado no <em>NEJM</em>. Não é falta de cobertura legal: a ANS e o Ministério da Saúde a preveem. O que falta é a governança que converta todos esses elementos em acesso real — e essa governança não emerge espontaneamente. É produto de escolhas políticas que ainda não foram feitas.</p>
+
+  <p>Resolver o problema exige redesenhar os mecanismos de alocação — inclusive os políticos que, como as emendas parlamentares impositivas, substituem critérios de saúde por critérios eleitorais na distribuição de recursos. Exige construir sistemas de monitoramento que tornem visíveis as brechas entre cobertura formal e acesso real. E exige, acima de tudo, o que o movimento sanitarista de Arouca demonstrou ser possível: disposição para fazer um diagnóstico honesto da realidade, sem conforto ideológico, e produzir uma proposta institucional coerente com esse diagnóstico.</p>
+
+  <p>A distinção entre escassez e má alocação não é uma questão técnica de contabilidade pública. É uma questão de epistemologia política — de como uma sociedade se permite conhecer os problemas que não quer resolver.</p>
+
+  <div class="refs">
+    <p class="refs-label">Referências Bibliográficas</p>
+    <p>AGÊNCIA GOV. Como a dependência das emendas parlamentares desafia a saúde pública no Brasil. <em>Agência Gov / EBC</em>, dez. 2024.</p>
     <p>ARROW, Kenneth J. Uncertainty and the Welfare Economics of Medical Care. <em>American Economic Review</em>, v. 53, n. 5, p. 941–973, 1963.</p>
-    <p>BOURDIEU, Pierre. The Forms of Capital. In: RICHARDSON, J. (Ed.). <em>Handbook of Theory and Research for the Sociology of Education</em>. New York: Greenwood Press, 1986.</p>
-    <p>CYLUS, Jonathan; PAPANICOLAS, Irene; SMITH, Peter C. (Eds.). <em>Health System Efficiency</em>. Copenhagen: WHO, 2016.</p>
-    <p>FARMER, Paul E. et al. Structural Violence and Clinical Medicine. <em>PLOS Medicine</em>, v. 3, n. 10, e449, 2006.</p>
-    <p>IEPS. Emendas Parlamentares em Saúde: para onde caminham? Nota Técnica n. 35. São Paulo: IEPS / Umane, ago. 2024.</p>
-    <p>NOGUEIRA, Raul G. et al. Thrombectomy for Stroke in the Public Health Care System of Brazil. <em>New England Journal of Medicine</em>, v. 382, n. 24, p. 2316–2326, 2020.</p>
-    <p>RAJKUMAR, Andrew Sunil; SWAROOP, Vinaya. Public Spending and Outcomes: Does Governance Matter? <em>Journal of Development Economics</em>, v. 86, n. 1, p. 96–111, 2008.</p>
+    <p>BEGG, David; FISCHER, Stanley; DORNBUSCH, Rudiger. <em>Economics</em>. 8. ed. Maidenhead: McGraw-Hill, 2005.</p>
+    <p>BOURDIEU, Pierre. The Forms of Capital. In: RICHARDSON, J. (Ed.). <em>Handbook of Theory and Research for the Sociology of Education</em>. New York: Greenwood Press, 1986. p. 241–258.</p>
+    <p>BRASIL DE FATO. O sequestro do dinheiro público que as emendas parlamentares retiram do SUS e do Bolsa Família. <em>Brasil de Fato</em>, abr. 2026.</p>
+    <p>BRIGGS, Andrew. Rational allocation of resources available for healthcare. <em>Journal of the International AIDS Society</em>, v. 17, n. 4, 2014. DOI: 10.7448/IAS.17.4.19492.</p>
+    <p>BVS AROUCA / FIOCRUZ. VIII Conferência Nacional de Saúde. Biblioteca Virtual em Saúde Sergio Arouca, jul. 2023.</p>
+    <p>CONASS. <em>SUS: avaliação da eficiência do gasto público em saúde</em>. Brasília: Conselho Nacional de Secretários de Saúde, set. 2024.</p>
+    <p>CONJUR. Emendas parlamentares na saúde: o que é preciso emendar? <em>Consultor Jurídico</em>, abr. 2025.</p>
+    <p>CYLUS, Jonathan; PAPANICOLAS, Irene; SMITH, Peter C. (Eds.). <em>Health System Efficiency</em>. Copenhagen: European Observatory on Health Systems and Policies / WHO, 2016.</p>
+    <p>DANIELS, Norman. <em>Just Health: Meeting Health Needs Fairly</em>. Cambridge: Cambridge University Press, 2008.</p>
+    <p>FARMER, Paul E. <em>Pathologies of Power</em>. Berkeley: University of California Press, 2005.</p>
+    <p>FARMER, Paul E. et al. Structural Violence and Clinical Medicine. <em>PLOS Medicine</em>, v. 3, n. 10, e449, 2006. DOI: 10.1371/journal.pmed.0030449.</p>
+    <p>FIOCRUZ CEE. 40 anos da 8ª Conferência Nacional de Saúde. Centro de Estudos Estratégicos / Fiocruz, mar. 2026.</p>
+    <p>GRIGOLI, Francesco; LEY, Eduardo. A Compound Index of Public Sector Efficiency. <em>IMF Working Paper</em>. Washington, DC: IMF, 2012.</p>
+    <p>HOLMES, Seth M. et al. Paul Edward Farmer (1959–2022). <em>American Anthropologist</em>, v. 126, n. 3, p. 521–527, 2024. DOI: 10.1111/aman.28019.</p>
+    <p>IEPS. Emendas Parlamentares em Saúde: para onde caminham? <em>Nota Técnica n. 35</em>. Instituto de Estudos para Políticas de Saúde / Umane, ago. 2024.</p>
+    <p>IEPS / IBGE. Conta-Satélite de Saúde e análise de gasto público. São Paulo: IEPS / AMB, 2022.</p>
+    <p>IHME. Global Health Care Spending Inefficiency 1995–2022. Seattle: IHME, 2025.</p>
+    <p>IMF. Waste Not, Want Not: The Efficiency of Health Expenditure in Emerging and Developing Economies. <em>IMF Working Paper WP/13/187</em>. Washington, DC: IMF, 2013.</p>
+    <p>JORNAL DA USP. Emendas parlamentares funcionam como gargalo no SUS. <em>Jornal da USP</em>, abr. 2024.</p>
+    <p>MARTINS, Sheila C. O. et al. Reperfusion therapy for acute ischemic stroke: where are we in 2023? <em>Arquivos de Neuro-Psiquiatria</em>, 2023. PMC10756810.</p>
+    <p>NEJM. Unclouded Judgment — Global Health and the Moral Clarity of Paul Farmer. <em>New England Journal of Medicine</em>, v. 386, n. 22, p. 2060–2063, jun. 2022.</p>
+    <p>NOGUEIRA, Raul G. et al. Thrombectomy for Stroke in the Public Health Care System of Brazil. <em>New England Journal of Medicine</em>, v. 382, n. 24, p. 2316–2326, 2020. DOI: 10.1056/NEJMoa2000120.</p>
+    <p>OMS. <em>The World Health Report 2010: Health Systems Financing</em>. Genebra: WHO, 2010.</p>
+    <p>OMS. <em>Global Health Expenditure Report 2024</em>. Genebra: WHO, dez. 2024.</p>
+    <p>OSPEL, Johanna M. et al. Challenges to Widespread Implementation of Stroke Thrombectomy. <em>Stroke</em>, v. 55, n. 8, p. 2173–2183, ago. 2024. DOI: 10.1161/STROKEAHA.124.045889.</p>
+    <p>PALMER, Shirley; TORGERSON, David J. Definitions of efficiency. <em>BMJ</em>, v. 318, n. 7191, p. 1136, 1999.</p>
+    <p>PAPANICOLAS, Irene; SMITH, Peter C. Theory of System Level Efficiency in Health Care. In: CULYER, A. J. (Ed.). <em>Encyclopedia of Health Economics</em>. Amsterdam: Elsevier, 2014. p. 386–394.</p>
+    <p>PMC / UEL-IPEA-FIOCRUZ. Efeitos das emendas parlamentares no financiamento municipal da atenção primária. <em>BMC Health Services Research</em>, 2024. DOI: 10.1186/s12913-024-10777-8.</p>
+    <p>SCIELO BRASIL. Eficiência do gasto público em atenção primária em saúde nos municípios do Rio de Janeiro. <em>Ciência &amp; Saúde Coletiva</em>, 2021.</p>
+    <p>SCIENCEDIRECT. Ischemic Stroke in Brazil (2017–2025): Trends in admissions, thrombolysis, craniectomy, costs, and COVID-19 disruption. <em>Journal of Stroke and Cerebrovascular Diseases</em>, 2025.</p>
+    <p>SEN, Amartya. Equality of What? <em>The Tanner Lecture on Human Values</em>. Stanford: Stanford University, 1979.</p>
     <p>SEN, Amartya. <em>Development as Freedom</em>. New York: Anchor Books, 1999.</p>
+    <p>TESOURO NACIONAL. Relatório COFOG: Análise da Despesa do Governo Geral 2024. Brasília: Ministério da Fazenda, dez. 2025.</p>
+    <p>VIEIRA, Fabiola Sulpino. Health financing in Brazil and the goals of the 2030 Agenda. <em>Revista de Saúde Pública</em>, v. 54, 2020. DOI: 10.11606/s1518-8787.2020054002414.</p>
+    <p>WORLD STROKE ORGANIZATION. Advancing Stroke Treatment: Approval of Mechanical Thrombectomy by the Ministry of Health in Brazil. WSO News, nov. 2023.</p>
   </div>
 
 </div>
 
-<div class="essay-nav-strip">
-  <div class="essay-nav-strip-i">
+<div class="essay-nav">
+  <div class="essay-nav-i">
     <a href="index.html">
-      <span class="nav-label">← Voltar</span>
-      <span class="nav-name">Página inicial</span>
+      <span class="nav-lbl">← Voltar</span>
+      <span class="nav-nm">Página inicial</span>
     </a>
     <a href="ensaio-02.html" class="nav-next">
-      <span class="nav-label">Próximo ensaio →</span>
-      <span class="nav-name">A Guerra Que Não Cura</span>
+      <span class="nav-lbl">Próximo ensaio →</span>
+      <span class="nav-nm">A Guerra Que Não Cura</span>
     </a>
   </div>
 </div>
@@ -236,7 +348,7 @@ footer{background:var(--ink);padding:36px clamp(24px,5vw,80px)}
     <div>
       <div class="cs-badge"><span class="badge-dot"></span><span class="badge-txt">Comentários</span></div>
       <h2 class="cs-h2">Deixe sua<br>impressão.</h2>
-      <p class="cs-p">Os ensaios se constroem no diálogo. Se algo te inquietou, se você discorda de um diagnóstico ou quer aprofundar alguma análise — este espaço é seu.</p>
+      <p class="cs-p">Os ensaios se constroem no diálogo. Se algo te inquietou, se você discorda de um diagnóstico — este espaço é seu.</p>
       <p class="cs-p">As respostas são lidas com atenção.</p>
     </div>
     <div>
@@ -244,13 +356,23 @@ footer{background:var(--ink);padding:36px clamp(24px,5vw,80px)}
       <form class="cf" id="frm" onsubmit="go(event)">
         <div class="f2">
           <div class="fg"><label>Nome completo</label><input type="text" id="nm" placeholder="Seu nome" required></div>
-          <div class="fg"><label>Profissão</label><select id="pf"><option value="">Selecione...</option><option>Médico(a) / Profissional de Saúde</option><option>Gestor(a) Público(a)</option><option>Pesquisador(a) / Acadêmico(a)</option><option>Jornalista / Comunicador(a)</option><option>Estudante</option><option>Setor Privado</option><option>Outro</option></select></div>
+          <div class="fg"><label>Profissão</label>
+            <select id="pf"><option value="">Selecione...</option><option>Médico(a) / Profissional de Saúde</option><option>Gestor(a) Público(a)</option><option>Pesquisador(a) / Acadêmico(a)</option><option>Jornalista / Comunicador(a)</option><option>Estudante</option><option>Setor Privado</option><option>Outro</option></select>
+          </div>
         </div>
         <div class="f2">
           <div class="fg"><label>E-mail</label><input type="email" id="em" placeholder="seu@email.com" required></div>
           <div class="fg"><label>Telefone (opcional)</label><input type="tel" id="tel" placeholder="(11) 9 0000-0000"></div>
         </div>
-        <div class="fg"><label>Ensaio de referência</label><select id="ens"><option value="01 · Escassez Real ou Má Alocação?" selected>01 · Escassez Real ou Má Alocação?</option><option value="">Comentário geral</option><option>02 · A Guerra Que Não Cura</option><option>03 · A Doença do Estado</option><option>04 · A Medicina do Espelho</option></select></div>
+        <div class="fg"><label>Ensaio de referência</label>
+          <select id="ens">
+            <option value="01 · Escassez Real ou Má Alocação?" selected>01 · Escassez Real ou Má Alocação?</option>
+            <option value="">Comentário geral</option>
+            <option>02 · A Guerra Que Não Cura</option>
+            <option>03 · A Doença do Estado</option>
+            <option>04 · A Medicina do Espelho</option>
+          </select>
+        </div>
         <div class="fg"><label>Sua mensagem</label><textarea id="msg" placeholder="O que este ensaio te fez pensar?" required></textarea></div>
         <p class="f-note">Seus dados são usados exclusivamente para este contato e não serão compartilhados.</p>
         <button type="submit" class="f-btn">Enviar mensagem →</button>
@@ -262,17 +384,23 @@ footer{background:var(--ink);padding:36px clamp(24px,5vw,80px)}
 <footer>
   <div class="footer-i">
     <div class="footer-brand"><span class="dot"></span>Anamnese</div>
-    <div class="footer-r"><p>Série de Ensaios em Economia da Saúde Pública</p><p>São Paulo · 2026 · <a href="https://anamnese.substack.com">anamnese.substack.com</a></p></div>
+    <div class="footer-r">
+      <p>Série de Ensaios em Economia da Saúde Pública</p>
+      <p>São Paulo · 2026 · <a href="https://anamnese.substack.com">anamnese.substack.com</a></p>
+    </div>
   </div>
 </footer>
 
 <script>
-const SHEETS='https://script.google.com/macros/s/AKfycbwWpvZQ0V6K6N_UJ3sWm6jMsHL9vB04G1KWQ2SUNM5pf9XtCrJsnSuPB-rI_pUtkdpG/exec';
+const SHEETS='https://script.google.com/macros/s/AKfycbyM41GNAw5TXh5NBEB_lSKKiL0qBr94wSuWALQ7fFtbbBx5m2LaZsPsNHXYZ5S9cxCN/exec';
 function go(e){
   e.preventDefault();
   var b=document.querySelector('.f-btn');b.textContent='Enviando...';b.disabled=true;
-  fetch(SHEETS,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:document.getElementById('nm').value,profissao:document.getElementById('pf').value,email:document.getElementById('em').value,telefone:document.getElementById('tel').value,ensaio:document.getElementById('ens').value,mensagem:document.getElementById('msg').value})})
-  .then(function(){show()}).catch(function(){show()});
+  fetch(SHEETS,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({nome:document.getElementById('nm').value,profissao:document.getElementById('pf').value,
+    email:document.getElementById('em').value,telefone:document.getElementById('tel').value,
+    ensaio:document.getElementById('ens').value,mensagem:document.getElementById('msg').value})
+  }).then(function(){show()}).catch(function(){show()});
 }
 function show(){document.getElementById('frm').style.display='none';document.getElementById('ok').style.display='block';}
 </script>
