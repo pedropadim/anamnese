@@ -6,6 +6,7 @@
 <title>ANAMNESE — Diagnóstico Antes da Prescrição</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@300;400;500;700;800;900&family=Instrument+Serif:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -199,6 +200,89 @@ footer{background:var(--ink);padding:40px clamp(24px,5vw,80px)}
 .toast{display:none;position:fixed;bottom:28px;right:28px;z-index:999;background:var(--ink);color:var(--white);font-family:var(--cab);font-size:13px;font-weight:600;padding:12px 22px;border-radius:100px}
 .toast.show{display:block}
 
+/* ── DIAGRAMA DE TENSÕES ─────────────────────────────────────────────── */
+:root{
+  --purple-fill:#EEEDFE;--purple-border:#534AB7;--purple-text:#26215C;
+  --coral-fill:#FAECE7;--coral-border:#993C1D;--coral-text:#4A1B0C;
+  --amber-fill:#FAEEDA;--amber-border:#854F0B;--amber-text:#412402;
+  --teal-fill:#E1F5EE;--teal-border:#0F6E56;--teal-text:#04342C;
+  --blue-fill:#E6F1FB;--blue-border:#185FA5;--blue-text:#042C53;
+}
+.diagrama-sec{padding:clamp(60px,8vw,120px) clamp(24px,5vw,80px);background:var(--white)}
+.diagrama-sec-i{max-width:1280px;margin:0 auto}
+.diagrama-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:24px}
+.diagrama-eyebrow-tag{font-family:var(--cab);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--lime-dark);background:rgba(200,241,53,.18);padding:4px 12px;border-radius:100px}
+.diagrama-eyebrow-num{font-family:var(--cab);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--mid)}
+.diagrama-title{font-family:var(--cab);font-weight:900;font-size:clamp(28px,3.5vw,52px);line-height:.97;letter-spacing:-.04em;color:var(--ink);margin-bottom:10px}
+.diagrama-sub{font-family:var(--inst);font-style:italic;font-size:clamp(15px,1.4vw,18px);color:var(--mid);margin-bottom:8px;line-height:1.4}
+.diagrama-hint{font-family:var(--cab);font-size:12px;color:var(--mid);margin-top:20px;margin-bottom:48px;display:flex;align-items:center;gap:8px}
+.diagrama-hint-dot{width:6px;height:6px;background:var(--lime);border-radius:50%;flex-shrink:0}
+.d-layer-label{font-family:var(--cab);font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--mid);display:flex;align-items:center;gap:12px;margin-bottom:20px;margin-top:48px}
+.d-layer-label::before{content:'';flex:1;height:1px;background:var(--faint)}
+.d-layer-label::after{content:'';flex:1;height:1px;background:var(--faint)}
+.d-layer-label:first-of-type{margin-top:0}
+.d-node-grid{display:grid;gap:12px}
+.d-grid-3{grid-template-columns:repeat(3,1fr)}
+.d-grid-4{grid-template-columns:repeat(4,1fr)}
+.d-grid-1{grid-template-columns:1fr;max-width:640px;margin:0 auto}
+.d-node{border-radius:14px;padding:20px 22px;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;position:relative;border-width:1.5px;border-style:solid;user-select:none;display:flex;align-items:flex-start;gap:14px}
+.d-node:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.09)}
+.d-node.active{box-shadow:0 12px 40px rgba(0,0,0,.14)}
+.d-node-icon{flex-shrink:0;width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:22px;opacity:.9;transition:opacity .18s,transform .22s cubic-bezier(.34,1.56,.64,1)}
+.d-node:hover .d-node-icon{opacity:1;transform:scale(1.12)}
+.d-node.active .d-node-icon{opacity:1;transform:scale(1.05)}
+.d-node-body{flex:1;min-width:0}
+.d-node-label{font-family:var(--cab);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:5px;opacity:.65}
+.d-node-title{font-family:var(--cab);font-weight:800;font-size:clamp(14px,1.3vw,17px);letter-spacing:-.02em;line-height:1.2;margin-bottom:4px}
+.d-node-sub{font-family:var(--cab);font-size:12px;font-weight:500;opacity:.6;line-height:1.3}
+.d-node-arrow{position:absolute;right:16px;top:18px;font-size:13px;opacity:.3;transition:opacity .18s,transform .18s}
+.d-node:hover .d-node-arrow{opacity:.6}
+.d-node.active .d-node-arrow{opacity:1;transform:rotate(180deg)}
+.dn-purple .d-node-icon{background:rgba(127,119,221,.15);color:#534AB7}
+.dn-coral  .d-node-icon{background:rgba(216,90,48,.12);color:#993C1D}
+.dn-amber  .d-node-icon{background:rgba(186,117,23,.12);color:#854F0B}
+.dn-teal   .d-node-icon{background:rgba(29,158,117,.12);color:#0F6E56}
+.dn-blue   .d-node-icon{background:rgba(55,138,221,.12);color:#185FA5}
+.dn-ink    .d-node-icon{background:rgba(200,241,53,.12);color:var(--lime)}
+.dn-purple{background:var(--purple-fill);border-color:#AFA9EC;color:var(--purple-text)}
+.dn-purple .d-node-title{color:var(--purple-text)}
+.dn-purple.active{border-color:var(--purple-border);background:#E8E7FC}
+.dn-coral{background:var(--coral-fill);border-color:#F0997B;color:var(--coral-text)}
+.dn-coral .d-node-title{color:var(--coral-text)}
+.dn-coral.active{border-color:var(--coral-border);background:#F5D5C8}
+.dn-amber{background:var(--amber-fill);border-color:#EF9F27;color:var(--amber-text)}
+.dn-amber .d-node-title{color:var(--amber-text)}
+.dn-amber.active{border-color:var(--amber-border);background:#F5DDB0}
+.dn-teal{background:var(--teal-fill);border-color:#5DCAA5;color:var(--teal-text)}
+.dn-teal .d-node-title{color:var(--teal-text)}
+.dn-teal.active{border-color:var(--teal-border);background:#B8EDD9}
+.dn-blue{background:var(--blue-fill);border-color:#85B7EB;color:var(--blue-text)}
+.dn-blue .d-node-title{color:var(--blue-text)}
+.dn-blue.active{border-color:var(--blue-border);background:#C8DFFA}
+.dn-ink{background:var(--ink);border-color:var(--ink);color:#fff}
+.dn-ink .d-node-label{color:rgba(255,255,255,.5)}
+.dn-ink .d-node-title{color:var(--lime)}
+.dn-ink .d-node-sub{color:rgba(255,255,255,.55)}
+.dn-ink .d-node-arrow{color:var(--lime)}
+.dn-ink:hover{box-shadow:0 8px 28px rgba(0,0,0,.25)}
+.dn-ink.active{border-color:var(--lime);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+.d-panel-wrap{overflow:hidden;transition:max-height .42s cubic-bezier(.4,0,.2,1),opacity .35s ease,margin .3s ease}
+.d-panel-wrap.closed{max-height:0;opacity:0;margin-top:0;pointer-events:none}
+.d-panel-wrap.open{max-height:700px;opacity:1;margin-top:12px}
+.d-panel{border-radius:16px;padding:28px 32px;border-left:3px solid var(--lime);background:var(--off)}
+.d-panel-inner{max-width:680px}
+.d-panel-tag{font-family:var(--cab);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--mid);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.d-panel-tag::before{content:'';display:inline-block;width:6px;height:6px;background:var(--lime);border-radius:50%}
+.d-panel p{font-family:var(--inst);font-size:clamp(15px,1.3vw,17px);line-height:1.85;color:#2a2a2a;margin-bottom:16px}
+.d-panel p:last-child{margin-bottom:0}
+.d-panel strong{font-weight:600;color:var(--ink)}
+.d-legend{display:flex;flex-wrap:wrap;gap:16px 28px;margin-top:48px;padding-top:32px;border-top:1px solid var(--faint)}
+.d-legend-item{display:flex;align-items:center;gap:8px}
+.d-legend-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+.d-legend-txt{font-family:var(--cab);font-size:11px;font-weight:600;color:var(--mid);letter-spacing:.04em}
+@media(max-width:860px){.d-grid-3{grid-template-columns:1fr 1fr}.d-grid-4{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.d-grid-3{grid-template-columns:1fr}.d-grid-4{grid-template-columns:1fr}}
+
 @media(max-width:860px){
   .hero-sub,.manifesto-i,.sobre-i,.contato-i{grid-template-columns:1fr;gap:40px}
   .stats-i{grid-template-columns:1fr 1fr}
@@ -330,6 +414,7 @@ footer{background:var(--ink);padding:40px clamp(24px,5vw,80px)}
     <div class="nav-links">
       <a onclick="document.getElementById('ensaios-sec').scrollIntoView({behavior:'smooth'})">Ensaios</a>
       <a onclick="document.getElementById('sobre-sec').scrollIntoView({behavior:'smooth'})">Sobre</a>
+      <a onclick="document.getElementById('diagrama-sec').scrollIntoView({behavior:'smooth'})">Mapa</a>
       <a onclick="document.getElementById('contato-sec').scrollIntoView({behavior:'smooth'})" class="nav-btn">Acompanhar</a>
       <a onclick="openAdmin()" class="nav-login">Login</a>
     </div>
@@ -378,6 +463,173 @@ footer{background:var(--ink);padding:40px clamp(24px,5vw,80px)}
       <span class="sec-count" id="ensaios-count">4 ensaios</span>
     </div>
     <div id="ensaios-render"></div>
+  </div>
+</section>
+
+<!-- DIAGRAMA DE TENSÕES -->
+<section class="diagrama-sec" id="diagrama-sec">
+  <div class="diagrama-sec-i">
+    <div class="diagrama-eyebrow">
+      <span class="diagrama-eyebrow-num">Mapa de Tensões</span>
+      <span class="diagrama-eyebrow-tag">Diagnóstico Estrutural</span>
+    </div>
+    <h2 class="diagrama-title">O sistema que não<br>entrega o que promete</h2>
+    <p class="diagrama-sub">Atores, tensões e efeitos da crise na saúde brasileira</p>
+    <p class="diagrama-hint"><span class="diagrama-hint-dot"></span>Clique em qualquer bloco para ler a explicação</p>
+
+    <!-- CAMADA 1 -->
+    <p class="d-layer-label">camada 1 — atores do sistema</p>
+    <div class="d-node-grid d-grid-3">
+      <div class="d-node dn-purple" data-did="operadoras" onclick="dtoggle(this)">
+        <div class="d-node-icon"><i class="ti ti-building-hospital" aria-hidden="true"></i></div>
+        <div class="d-node-body"><span class="d-node-label">Ator privado</span><div class="d-node-title">Operadoras de saúde</div><div class="d-node-sub">Planos de saúde suplementar</div></div>
+        <span class="d-node-arrow">↓</span>
+      </div>
+      <div class="d-node dn-purple" data-did="medico" onclick="dtoggle(this)">
+        <div class="d-node-icon"><i class="ti ti-stethoscope" aria-hidden="true"></i></div>
+        <div class="d-node-body"><span class="d-node-label">Ator clínico</span><div class="d-node-title">Médico assistente</div><div class="d-node-sub">Autonomia clínica em disputa</div></div>
+        <span class="d-node-arrow">↓</span>
+      </div>
+      <div class="d-node dn-purple" data-did="sus" onclick="dtoggle(this)">
+        <div class="d-node-icon"><i class="ti ti-activity" aria-hidden="true"></i></div>
+        <div class="d-node-body"><span class="d-node-label">Ator público</span><div class="d-node-title">SUS</div><div class="d-node-sub">Sistema público universal</div></div>
+        <span class="d-node-arrow">↓</span>
+      </div>
+    </div>
+    <div class="d-panel-wrap closed" id="dpanel-operadoras"><div class="d-panel"><div class="d-panel-inner"><p class="d-panel-tag">Operadoras de saúde</p><p>As operadoras de planos de saúde são o intermediário financeiro entre o paciente que paga mensalidade e o médico ou hospital que presta o serviço. No Brasil, cobrem cerca de 50 milhões de beneficiários e respondem por parcela expressiva do gasto total em saúde — mas sua lógica de funcionamento é atuarial, não clínica: o objetivo é equilibrar sinistralidade e receita, o que cria incentivos estruturais para limitar o acesso a procedimentos.</p><p>Esse desenho produz um conflito fundamental: a operadora aprova ou nega tratamentos por critérios financeiros, enquanto o médico indica por critério clínico. Quando esses critérios colidem — e colidem com frequência crescente — o paciente fica no meio, a relação médico-paciente é corroída, e o Judiciário passa a funcionar como árbitro de decisões que deveriam ser técnicas. Em 2024, as ações judiciais contra planos de saúde mais do que dobraram em quatro anos, atingindo quase 300 mil novos processos no ano.</p></div></div></div>
+    <div class="d-panel-wrap closed" id="dpanel-medico"><div class="d-panel"><div class="d-panel-inner"><p class="d-panel-tag">Médico assistente</p><p>O médico assistente é o profissional que examina o paciente, faz o diagnóstico e indica o tratamento. Sua autonomia clínica — o direito de decidir o que é clinicamente necessário — é simultaneamente o princípio ético central da prática médica e o ponto mais contestado pelas operadoras. Quando uma operadora exige autorização prévia, questiona a indicação ou revoga cobertura após o procedimento realizado, está intervindo diretamente no ato médico sem assumir a responsabilidade ética que esse ato carrega.</p><p>O resultado prático é um médico que precisa documentar, justificar, recorrer e aguardar autorizações para cada procedimento significativo — num sistema onde o tempo muitas vezes é determinante para o desfecho clínico. O ambiente de litigiosidade crescente adiciona outra camada: com mais de 573 mil processos em curso na medicina brasileira, muitos médicos passam a praticar medicina defensiva, solicitando exames e procedimentos não pelo bem do paciente, mas para se proteger juridicamente.</p></div></div></div>
+    <div class="d-panel-wrap closed" id="dpanel-sus"><div class="d-panel"><div class="d-panel-inner"><p class="d-panel-tag">SUS — Sistema Único de Saúde</p><p>O SUS é o maior sistema público de saúde universal do mundo em extensão territorial, criado pela Constituição de 1988 com os princípios de universalidade, integralidade e equidade. Cobre formalmente toda a população brasileira — os 50 milhões que não têm plano privado dependem dele exclusivamente, e mesmo quem tem plano usa o SUS para vacinas, vigilância epidemiológica, transplantes e procedimentos de alta complexidade não cobertos pelos planos.</p><p>O SUS opera com subfinanciamento estrutural: o gasto público federal ficou em torno de 3,96% do PIB por anos, entre os mais baixos do mundo para países com sistema universal declarado. A Emenda Constitucional 95/2016 congelou esse gasto em termos reais por até vinte anos. Ao mesmo tempo, a população envelhece, as doenças crônicas avançam e novas tecnologias são incorporadas ao rol de cobertura obrigatória — ampliando o hiato entre o que o sistema promete e o que consegue entregar.</p></div></div></div>
+
+    <!-- CAMADA 2A -->
+    <p class="d-layer-label">camada 2a — tensões primárias</p>
+    <div class="d-node-grid d-grid-3">
+      <div class="d-node dn-coral" data-did="glosa" onclick="dtoggle(this)">
+        <div class="d-node-icon"><i class="ti ti-file-x" aria-hidden="true"></i></div>
+        <div class="d-node-body"><span class="d-node-label">Tensão financeira</span><div class="d-node-title">Glosa e autorização prévia</div><div class="d-node-sub">Operadora nega ou revoga cobertura</div></div>
+        <span class="d-node-arrow">↓</span>
+      </div>
+      <div class="d-node dn-coral" data-did="rol" onclick="dtoggle(this)">
+        <div class="d-node-icon"><i class="ti ti-clipboard-list" aria-hidden="true"></i></div>
+        <div class="d-node-body"><span class="d-node-label">Tensão regulatória</span><div class="d-node-title">Rol da ANS</div><div class="d-node-sub">O que o plano é obrigado a cobrir?</div></div>
+        <span class="d-node-arrow">↓</span>
+      </div>
+      <div class="d-node dn-coral" data-did="subfinanciamento" onclick="dtoggle(this)">
+        <div class="d-node-icon"><i class="ti ti-trending-down" aria-hidden="true"></i></div>
+        <div class="d-node-body"><span class="d-node-label">Tensão fiscal</span><div class="d-node-title">Subfinanciamento do SUS</div><div class="d-node-sub">EC 95 e teto de gastos</div></div>
+        <span class="d-node-arrow">↓</span>
+      </div>
+    </div>
+    <div class="d-panel-wrap closed" id="dpanel-glosa"><div class="d-panel"><div class="d-panel-inner"><p class="d-panel-tag">Glosa e autorização prévia</p><p>A glosa é a recusa ou redução do pagamento que a operadora aplica sobre a fatura do hospital ou do médico após o atendimento realizado — muitas vezes mesmo quando o procedimento havia sido previamente autorizado. Em 2024, os hospitais privados brasileiros registraram taxa de glosa de 15,89% sobre o faturamento, equivalente a R$ 5,8 bilhões retidos pelas operadoras. O dado mais revelador é que, após contestação, apenas 1,96% do total glosado permaneceu efetivamente suspenso — ou seja, 98% das glosas eram indevidas, mas o hospital precisava disputar cada uma individualmente.</p><p>A glosa não é um instrumento de qualidade: é de caixa. A Resolução CFM nº 2.448/2025 tentou coibir práticas como a remuneração de auditores médicos vinculada ao número de glosas geradas — o chamado "bônus por recusa" — e proibiu auditorias remotas em casos de divergência clínica. Em março de 2026, as quatro maiores entidades do setor suplementar obtiveram na Justiça Federal a suspensão dos artigos centrais dessa resolução, reabilitando as práticas que a norma pretendia eliminar.</p></div></div></div>
+    <div class="d-panel-wrap closed" id="dpanel-rol"><div class="d-panel"><div class="d-panel-inner"><p class="d-panel-tag">Rol da ANS</p><p>O Rol de Procedimentos da ANS é a lista de exames, tratamentos e procedimentos que os planos de saúde são obrigados a cobrir. Por décadas, as operadoras argumentaram que o rol era <strong>taxativo</strong> — só se cobre o que está explicitamente listado. Em junho de 2022, o STJ acolheu essa interpretação, gerando comoção. O Congresso reverteu a decisão com a Lei 14.454/2022, tornando o rol <strong>exemplificativo</strong>: procedimentos fora da lista podem ser cobertos quando há prescrição médica, evidência científica e ausência de alternativa equivalente no rol. Em setembro de 2025, o STF fixou cinco critérios cumulativos para balizar essas coberturas.</p><p>O impasse revela uma tensão estrutural: o que conta como "evidência científica suficiente" para um juiz que decide uma liminar às 23h? O NAT-JUS — Núcleo de Apoio Técnico do Judiciário — existe para assessorar magistrados tecnicamente, mas registrou mais de 98 mil notas técnicas apenas em 2024, crescimento de 40% em um ano. A decisão médica foi terceirizada para o Judiciário em dimensão sistêmica, transformando a ação judicial numa etapa previsível do próprio fluxo assistencial.</p></div></div></div>
+    <div class="d-panel-wrap closed" id="dpanel-subfinanciamento"><div class="d-panel"><div class="d-panel-inner"><p class="d-panel-tag">Subfinanciamento do SUS</p><p>A Emenda Constitucional 95/2016 congelou os gastos federais em saúde em termos reais por até vinte anos, transformando o piso constitucional em teto efetivo de despesas e retirando aproximadamente R$ 70 bilhões do SUS entre 2018 e 2022. Esse encolhimento ocorreu num período em que a população envelheceu, as doenças crônicas avançaram e novas tecnologias foram incorporadas ao rol de procedimentos obrigatórios — o que amplia o hiato entre demanda e capacidade de resposta.</p><p>O subfinanciamento cria um ambiente propício para a captura política do orçamento: em condições de escassez severa, os atores políticos com poder de influir sobre a alocação ganham espaço desproporcional. Em 2024, as emendas parlamentares para a saúde atingiram R$ 25,5 bilhões — o maior valor da série histórica. A lógica de alocação dessas emendas é estritamente eleitoral, desconectada dos instrumentos de planejamento do SUS e das pactuações feitas nas Comissões Intergestores. O subfinanciamento brasileiro não é residual nem conjuntural: é uma escolha política inscrita na arquitetura fiscal do Estado.</p></div></div></div>
+
+    <!-- CAMADA 2B -->
+    <p class="d-layer-label">camada 2b — tensões secundárias</p>
+    <div class="d-node-grid d-grid-3">
+      <div class="d-node dn-amber" data-did="judicializacao" onclick="dtoggle(this)">
+        <div class="d-node-icon"><i class="ti ti-gavel" aria-hidden="true"></i></div>
+        <div class="d-node-body"><span class="d-node-label">Efeito sistêmico</span><div class="d-node-title">Judicialização</div><div class="d-node-sub">657 mil novos processos em 2024</div></div>
+        <span class="d-node-arrow">↓</span>
+      </div>
+      <div class="d-node dn-amber" data-did="defensiva" onclick="dtoggle(this)">
+        <div class="d-node-icon"><i class="ti ti-shield-x" aria-hidden="true"></i></div>
+        <div class="d-node-body"><span class="d-node-label">Efeito clínico</span><div class="d-node-title">Medicina defensiva</div><div class="d-node-sub">Medo de processo molda decisões</div></div>
+        <span class="d-node-arrow">↓</span>
+      </div>
+      <div class="d-node dn-amber" data-did="auditoria" onclick="dtoggle(this)">
+        <div class="d-node-icon"><i class="ti ti-coin" aria-hidden="true"></i></div>
+        <div class="d-node-body"><span class="d-node-label">Efeito institucional</span><div class="d-node-title">Auditoria de custo</div><div class="d-node-sub">Auditor financeiro sobrepõe o médico</div></div>
+        <span class="d-node-arrow">↓</span>
+      </div>
+    </div>
+    <div class="d-panel-wrap closed" id="dpanel-judicializacao"><div class="d-panel"><div class="d-panel-inner"><p class="d-panel-tag">Judicialização da saúde</p><p>A judicialização é o fenômeno pelo qual pacientes recorrem ao Judiciário para obter acesso a tratamentos, medicamentos ou procedimentos negados pelo sistema — seja pelo SUS, seja por planos de saúde. Em 2024, foram registrados 657.473 novos processos de saúde no Brasil, crescimento de 15% em relação a 2023. As ações contra operadoras de planos mais do que dobraram em quatro anos. Há hoje mais de 801 mil processos pendentes, e projeções indicam que esse número pode chegar a 1,2 milhão de novas ações por ano até 2030.</p><p>A judicialização tem uma face contraditória: ao mesmo tempo em que garante acesso individual a quem tem advogado e consegue navegar o sistema judicial, ela é regressiva do ponto de vista da equidade. Estudos comparativos mostram que a litigância em saúde favorece populações com maior capital cultural, econômico e social — quem mora perto de tribunais, tem acesso a advogados e pode aguardar o processo. Populações vulneráveis ficam sistematicamente em desvantagem. No Brasil, a judicialização também onera o SUS: o Ministério da Saúde gastou mais de R$ 2,7 bilhões em 2024 apenas para cumprir decisões judiciais.</p></div></div></div>
+    <div class="d-panel-wrap closed" id="dpanel-defensiva"><div class="d-panel"><div class="d-panel-inner"><p class="d-panel-tag">Medicina defensiva</p><p>Medicina defensiva é o conjunto de condutas clínicas adotadas não pelo melhor interesse do paciente, mas para reduzir o risco de responsabilização judicial do médico. Inclui a solicitação de exames desnecessários, encaminhamentos supérfluos, internações mais longas do que o indicado, e — na forma mais prejudicial — a recusa de casos complexos e o abandono de especialidades de alto risco como obstetrícia, neurocirurgia e cirurgia de emergência. O Brasil registrou entre 2023 e 2024 um crescimento de 506% nas ações relacionadas a erros médicos, e hoje tem mais ações judiciais do que médicos em atividade: 573 mil processos para 562 mil profissionais.</p><p>A medicina defensiva cria um paradoxo: ao ampliar o direito individual de processar médicos, o Judiciário pode estar destruindo o acesso coletivo a especialistas que atuam exatamente nos casos mais graves. Médicos evitam cirurgias de alto risco não porque são incompetentes, mas porque o ambiente jurídico pune o desfecho ruim independentemente da qualidade técnica do cuidado.</p></div></div></div>
+    <div class="d-panel-wrap closed" id="dpanel-auditoria"><div class="d-panel"><div class="d-panel-inner"><p class="d-panel-tag">Auditoria de custo</p><p>A auditoria médica é o processo pelo qual operadoras examinam a adequação dos procedimentos realizados e decidem sobre o pagamento. Na sua forma legítima, é um instrumento de qualidade. Na forma que se tornou predominante no Brasil, é um mecanismo de contenção de custos que transfere para o médico auditor — que não examinou o paciente — a prerrogativa de questionar ou revogar decisões do médico assistente.</p><p>A Resolução CFM 2.448/2025 estabeleceu que divergências clínicas insuperáveis exigem exame presencial do paciente pelo auditor, e vedou que auditores recebam remuneração vinculada às glosas que geram. A suspensão judicial dessa resolução, obtida pelas operadoras em 2026, ilustra o núcleo do conflito: critérios financeiros se sobrepõem a critérios clínicos em decisões que afetam diretamente a saúde dos pacientes.</p></div></div></div>
+
+    <!-- CAMADA 3 -->
+    <p class="d-layer-label">camada 3 — efeitos clínicos e sociais</p>
+    <div class="d-node-grid d-grid-3">
+      <div class="d-node dn-teal" data-did="intercorrencias" onclick="dtoggle(this)">
+        <div class="d-node-icon"><i class="ti ti-first-aid-kit" aria-hidden="true"></i></div>
+        <div class="d-node-body"><span class="d-node-label">Efeito jurídico</span><div class="d-node-title">Intercorrências cirúrgicas</div><div class="d-node-sub">Risco inerente vira indenização</div></div>
+        <span class="d-node-arrow">↓</span>
+      </div>
+      <div class="d-node dn-teal" data-did="acesso" onclick="dtoggle(this)">
+        <div class="d-node-icon"><i class="ti ti-users" aria-hidden="true"></i></div>
+        <div class="d-node-body"><span class="d-node-label">Efeito social</span><div class="d-node-title">Acesso desigual</div><div class="d-node-sub">Judicialização favorece quem tem advogado</div></div>
+        <span class="d-node-arrow">↓</span>
+      </div>
+      <div class="d-node dn-teal" data-did="medicamentos" onclick="dtoggle(this)">
+        <div class="d-node-icon"><i class="ti ti-pill" aria-hidden="true"></i></div>
+        <div class="d-node-body"><span class="d-node-label">Efeito bioético</span><div class="d-node-title">Medicamentos de alto custo</div><div class="d-node-sub">Direito individual vs. equidade coletiva</div></div>
+        <span class="d-node-arrow">↓</span>
+      </div>
+    </div>
+    <div class="d-panel-wrap closed" id="dpanel-intercorrencias"><div class="d-panel"><div class="d-panel-inner"><p class="d-panel-tag">Intercorrências cirúrgicas e responsabilidade civil</p><p>Na medicina, há uma distinção técnica e ética fundamental: <strong>erro médico</strong> — negligência, imprudência ou imperícia — é diferente de <strong>intercorrência inerente</strong>, que é uma complicação esperada, dentro da taxa estatística conhecida, manejada adequadamente. Uma reação adversa a anestesia, um sangramento intraoperatório, uma infecção pós-cirúrgica apesar de todos os cuidados de assepsia: são riscos que a literatura médica documenta e que qualquer paciente informado pode enfrentar. Eles não configuram, por si sós, falha técnica.</p><p>O problema é que o Judiciário brasileiro tem dificuldade crescente para estabelecer essa distinção. Especialidades como ginecologia e obstetrícia, ortopedia e cirurgia plástica concentram a maior parte dos litígios justamente porque têm alta complexidade técnica e potencial de risco inerente elevado. O consentimento informado deveria ser o instrumento que equaliza essa assimetria. Na prática, virou documento defensivo para o médico e arma processual para o advogado.</p></div></div></div>
+    <div class="d-panel-wrap closed" id="dpanel-acesso"><div class="d-panel"><div class="d-panel-inner"><p class="d-panel-tag">Acesso desigual ao sistema</p><p>Um dos paradoxos mais perturbadores da judicialização da saúde é que ela foi pensada como instrumento de realização do direito constitucional à saúde para todos — mas na prática funciona como mecanismo regressivo de redistribuição. Estudos comparativos mostram que a litigância em saúde favorece sistematicamente quem tem capital cultural, econômico e social para acessar o Judiciário: advogados, proximidade geográfica a tribunais, capacidade de aguardar o processo.</p><p>Pierre Bourdieu oferece o enquadramento preciso: o acesso ao cuidado de saúde não depende apenas da disponibilidade formal de serviços, mas da capacidade de navegá-los. O efeito agregado é que mesmo em sistemas formalmente universais, o acesso efetivo reproduz as desigualdades pré-existentes. A má alocação não ocorre apenas nas salas de reunião dos ministérios: ela se reproduz cotidianamente na interação entre pacientes e sistemas.</p></div></div></div>
+    <div class="d-panel-wrap closed" id="dpanel-medicamentos"><div class="d-panel"><div class="d-panel-inner"><p class="d-panel-tag">Medicamentos de alto custo — o caso Zolgensma</p><p>O Zolgensma é uma terapia gênica para Atrofia Muscular Espinhal tipo 1 — doença neurodegenerativa fatal na infância. Custa em média R$ 7 milhões por dose única. Foi incorporado formalmente ao SUS em dezembro de 2022, mas o Ministério da Saúde levou 656 dias para iniciar a oferta efetiva, gerando uma onda de judicialização: entre 2019 e 2022, 136 processos foram movidos, com custo total de R$ 944 milhões ao erário.</p><p>O caso concentra todos os dilemas simultaneamente. O direito individual de uma criança com AME tipo 1 colide com o direito coletivo de outros pacientes cujos tratamentos são desfinanciados pelo mesmo orçamento. A janela terapêutica estreita da AME torna o atraso burocrático literalmente letal — e a Novartis declarou ser "contrária à judicialização como política de acesso", mas foi o atraso do governo que a tornou a única rota disponível.</p></div></div></div>
+
+    <!-- NÓ CENTRAL -->
+    <p class="d-layer-label">a pergunta central da série</p>
+    <div class="d-node-grid d-grid-1">
+      <div class="d-node dn-ink" data-did="central" onclick="dtoggle(this)" style="padding:28px 32px">
+        <div class="d-node-icon" style="width:44px;height:44px;border-radius:12px;font-size:24px"><i class="ti ti-chart-dots" aria-hidden="true"></i></div>
+        <div class="d-node-body"><span class="d-node-label">Pergunta diagnóstica</span><div class="d-node-title" style="font-size:clamp(16px,1.6vw,22px);margin-bottom:8px">Escassez real ou má alocação?</div><div class="d-node-sub" style="font-size:13px">O problema é falta de recurso — ou falta de governança para alocá-lo?</div></div>
+        <span class="d-node-arrow" style="font-size:16px">↓</span>
+      </div>
+    </div>
+    <div class="d-panel-wrap closed" id="dpanel-central">
+      <div class="d-panel" style="border-left-color:var(--lime);background:var(--ink)">
+        <div class="d-panel-inner">
+          <p class="d-panel-tag" style="color:rgba(255,255,255,.4)">Pergunta central — Ensaio Nº 01</p>
+          <p style="color:rgba(255,255,255,.85)">O debate público sobre saúde no Brasil oscila entre dois diagnósticos simplificadores. O primeiro diz: <strong style="color:var(--lime)">falta dinheiro</strong>. O segundo diz: <strong style="color:var(--lime)">o dinheiro existe, mas é mal gasto</strong>. Ambos capturam algo real. Nenhum dos dois, sozinho, serve de base para política pública séria. A distinção que a economia da saúde oferece é mais cirúrgica: escassez e má alocação não são diagnósticos alternativos. São patologias que coexistem, se alimentam mutuamente, e exigem intervenções distintas.</p>
+          <p style="color:rgba(255,255,255,.85)">Escassez real é o subfinanciamento estrutural: quando o gasto público está sistematicamente abaixo do necessário para garantir a cobertura prometida. O Brasil está nessa situação. O gasto público federal em saúde ficou em torno de 3,96% do PIB por anos — entre os mais baixos do mundo para países com sistema universal declarado. A EC 95/2016 congelou esse gasto em termos reais por até 20 anos, retirando cerca de R$ 70 bilhões do SUS entre 2018 e 2022. Há escassez real aqui. Negá-la é desonesto.</p>
+          <p style="color:rgba(255,255,255,.85)">Má alocação é a discrepância sistemática entre onde os recursos são aplicados e onde eles produziriam o maior retorno em saúde. O sistema tende a investir desproporcionalmente em intervenções de alta complexidade tecnológica — com prestígio simbólico elevado e receita por procedimento — em detrimento da atenção primária e preventiva, cujo retorno em saúde populacional é consistentemente superior em custo-efetividade. As emendas parlamentares impositivas são a expressão mais crua disso: em 2024, R$ 25,5 bilhões foram alocados por lógica eleitoral, não epidemiológica.</p>
+          <p style="color:rgba(255,255,255,.85)">O argumento mais importante: <strong style="color:var(--lime)">a causalidade entre subfinanciamento e ineficiência não é unidirecional</strong>. Sistemas cronicamente subfinanciados forçam gestores a decisões sob pressão extrema, sem margem para planejamento de médio prazo — o que gera ineficiência por definição. Ao mesmo tempo, a má alocação agrava o subfinanciamento funcional: mesmo os recursos disponíveis não chegam a quem mais precisa. Os dois problemas se sustentam mutuamente.</p>
+          <p style="color:rgba(255,255,255,.85)">O caso da trombectomia mecânica no AVE é paradigmático: o SUS tem orçamento bilionário, o procedimento existe, a evidência científica é sólida (NEJM, 2020), a cobertura legal existe, médicos treinados existem — e o SUS realizou 759 trombectomias em 2024, para uma necessidade estimada de 22 a 44 mil por ano. O que falta não é dinheiro nem tecnologia. É a governança que converta todos esses elementos em acesso real.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPARAÇÃO INTERNACIONAL -->
+    <p class="d-layer-label">comparação internacional</p>
+    <div class="d-node-grid d-grid-4">
+      <div class="d-node dn-blue" data-did="nordicos" onclick="dtoggle(this)">
+        <div class="d-node-icon"><i class="ti ti-snowflake" aria-hidden="true"></i></div>
+        <div class="d-node-body"><span class="d-node-label">Modelo</span><div class="d-node-title">Países nórdicos</div><div class="d-node-sub">No-fault, sem litígio individual</div></div>
+        <span class="d-node-arrow">↓</span>
+      </div>
+      <div class="d-node dn-blue" data-did="eua" onclick="dtoggle(this)">
+        <div class="d-node-icon"><i class="ti ti-building-skyscraper" aria-hidden="true"></i></div>
+        <div class="d-node-body"><span class="d-node-label">Modelo</span><div class="d-node-title">Estados Unidos</div><div class="d-node-sub">Prior authorization + medicina defensiva</div></div>
+        <span class="d-node-arrow">↓</span>
+      </div>
+      <div class="d-node dn-blue" data-did="latam" onclick="dtoggle(this)">
+        <div class="d-node-icon"><i class="ti ti-map-2" aria-hidden="true"></i></div>
+        <div class="d-node-body"><span class="d-node-label">Modelo</span><div class="d-node-title">América Latina</div><div class="d-node-sub">Colômbia lidera em litígios per capita</div></div>
+        <span class="d-node-arrow">↓</span>
+      </div>
+      <div class="d-node dn-blue" data-did="brasil-idio" onclick="dtoggle(this)">
+        <div class="d-node-icon"><i class="ti ti-puzzle" aria-hidden="true"></i></div>
+        <div class="d-node-body"><span class="d-node-label">Caso singular</span><div class="d-node-title">Brasil</div><div class="d-node-sub">Sem solução transplantável</div></div>
+        <span class="d-node-arrow">↓</span>
+      </div>
+    </div>
+    <div class="d-panel-wrap closed" id="dpanel-nordicos"><div class="d-panel"><div class="d-panel-inner"><p class="d-panel-tag">Modelo nórdico — no-fault</p><p>Suécia, Dinamarca, Noruega, Finlândia e Nova Zelândia adotam sistemas de compensação por danos médicos sem necessidade de provar culpa do profissional — o chamado modelo <em>no-fault</em>. Na Suécia, a compensação é concedida se o dano sofrido poderia ter sido evitado em circunstâncias ótimas, independentemente de o médico ter cometido ou não um erro. O resultado é que mais pacientes lesados recebem compensação, em menos tempo, com muito menos custo administrativo — e os médicos ficam libertos do calvário do litígio individual.</p><p>A evidência empírica mostra redução significativa da medicina defensiva nesses países, maior equidade na compensação e melhora na notificação de eventos adversos — que deixa de ser uma admissão de responsabilidade judicial e passa a ser um instrumento de aprendizagem sistêmica. O modelo não é transplantável diretamente ao Brasil: pressupõe fundo de compensação robusto, agência técnica independente e cultura de resolução extrajudicial de conflitos — nenhum dos quais o Brasil possui.</p></div></div></div>
+    <div class="d-panel-wrap closed" id="dpanel-eua"><div class="d-panel"><div class="d-panel-inner"><p class="d-panel-tag">Estados Unidos — prior authorization</p><p>Nos EUA, o problema análogo à glosa brasileira se chama <em>prior authorization</em> (PA): o processo pelo qual seguradoras exigem aprovação antecipada para procedimentos, medicamentos e exames. A AMA reportou em 2024 que quase um quarto dos médicos americanos declarou que a PA levou a um evento adverso grave em algum paciente sob seus cuidados — incluindo 7% que relataram casos de incapacidade permanente. Seguradoras negaram 3,2 milhões de solicitações de PA em 2023; 81,7% das apelações obtiveram sucesso total ou parcial — ou seja, a maioria das negativas era indevida.</p><p>O dado comparativo mais impactante vem de Himmelstein e Woolhandler (Health Affairs, 2014): os custos administrativos nos hospitais americanos correspondiam a 25,3% das despesas totais — contra 11,6% na Escócia e 12,4% no Canadá, ambos com pagador único. A conclusão: a multiplicidade de pagadores privados concorrentes não reduz custos — ela os infla. O Brasil combina um SUS subfinanciado com um setor suplementar fragmentado, replicando parcialmente a disfunção americana sem seus recursos.</p></div></div></div>
+    <div class="d-panel-wrap closed" id="dpanel-latam"><div class="d-panel"><div class="d-panel-inner"><p class="d-panel-tag">América Latina — o cluster da judicialização</p><p>Em nenhuma outra região do mundo a judicialização da saúde é mais prevalente do que na América Latina. Um estudo comparativo publicado no <em>International Journal for Equity in Health</em> (2019) encontrou que o número de ações por direito à saúde por um milhão de habitantes era de 3.289 na Colômbia, 206 no Brasil, 109 na Costa Rica, 29 na Argentina — e apenas 0,3 na África do Sul e 0,2 na Índia.</p><p>A mesma revisão de escopo aponta que a judicialização em saúde é sistematicamente ruim para a equidade: desvia recursos escassos dos mais pobres em favor dos mais ricos, que têm mais capacidade de acessar o Judiciário. O instrumento criado para realizar direitos acaba por reforçar desigualdades.</p></div></div></div>
+    <div class="d-panel-wrap closed" id="dpanel-brasil-idio"><div class="d-panel"><div class="d-panel-inner"><p class="d-panel-tag">O que o Brasil tem que nenhum outro sistema tem</p><p>O Brasil não é único nos seus componentes individuais — há judicialização na Colômbia, glosa nos EUA, subfinanciamento em países emergentes, medicina defensiva em sistemas de tort liability. O que é singular é a <strong>combinação</strong>: judicialização individualizada em escala continental + sistema dual (SUS + suplementar) sem mecanismo eficaz de ressarcimento + federalismo tripartite sem responsabilidade clara + responsabilidade civil de tort para médicos que têm autonomia parcialmente subtraída pelas operadoras.</p><p>Exatamente por isso, as soluções prontas disponíveis na literatura não funcionam como receita. O modelo <em>no-fault</em> nórdico pressupõe instituições que o Brasil não tem. A reforma da PA americana pressupõe um setor suplementar com escala e padronização que o Brasil não tem. O Brasil precisa de diagnóstico próprio antes de prescrição importada — que é, exatamente, o método que dá nome a esta série.</p></div></div></div>
+
+    <!-- LEGENDA -->
+    <div class="d-legend">
+      <div class="d-legend-item"><div class="d-legend-dot" style="background:#7F77DD"></div><span class="d-legend-txt">Atores do sistema</span></div>
+      <div class="d-legend-item"><div class="d-legend-dot" style="background:#D85A30"></div><span class="d-legend-txt">Tensões primárias</span></div>
+      <div class="d-legend-item"><div class="d-legend-dot" style="background:#BA7517"></div><span class="d-legend-txt">Tensões secundárias</span></div>
+      <div class="d-legend-item"><div class="d-legend-dot" style="background:#1D9E75"></div><span class="d-legend-txt">Efeitos clínicos e sociais</span></div>
+      <div class="d-legend-item"><div class="d-legend-dot" style="background:#0D0D0D"></div><span class="d-legend-txt">Pergunta central</span></div>
+      <div class="d-legend-item"><div class="d-legend-dot" style="background:#378ADD"></div><span class="d-legend-txt">Comparação internacional</span></div>
+    </div>
+
   </div>
 </section>
 
@@ -778,6 +1030,27 @@ function showToast(msg) {
 
 // ── INICIAR ───────────────────────────────────────────────────────────
 inicializar();
+
+// ── DIAGRAMA DE TENSÕES ───────────────────────────────────────────────
+function dtoggle(el) {
+  const id = el.dataset.did;
+  const panelEl = document.getElementById('dpanel-' + id);
+  if (!panelEl) return;
+  const isOpen = panelEl.classList.contains('open');
+  if (isOpen) {
+    panelEl.classList.remove('open');
+    panelEl.classList.add('closed');
+    el.classList.remove('active');
+  } else {
+    panelEl.classList.remove('closed');
+    panelEl.classList.add('open');
+    el.classList.add('active');
+    setTimeout(() => {
+      const top = el.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }, 60);
+  }
+}
 </script>
 </body>
 </html>
