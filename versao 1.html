@@ -1,0 +1,371 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.1">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="pt-BR"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1">&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1">&lt;title&gt;Modo de Crise · O Teste do Ponto de Ruptura&lt;/title&gt;</p>
+<p class="p1">&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;</p>
+<p class="p1">&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;</p>
+<p class="p1">&lt;link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&amp;family=JetBrains+Mono:wght@400;500&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap" rel="stylesheet"&gt;</p>
+<p class="p1">&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>:root {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--ink: #0f0e0c;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--paper: #f4f1ea;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--paper-2: #e8e4d8;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--paper-3: #ddd8c8;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--lime: #c5e63d;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--lime-deep: #1b4d22;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--rust: #b54a2d;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--muted: #6b6862;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--line: #2a2823;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>* { box-sizing: border-box; margin: 0; padding: 0; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background-color: var(--paper);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color: var(--ink);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-family: 'Lora', serif;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>justify-content: center;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>min-height: 100vh;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.container {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>max-width: 800px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background: var(--paper-2);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border: 2px solid var(--line);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 40px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>box-shadow: 6px 6px 0px var(--line);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>h1, h2, h3 { font-family: 'Fraunces', serif; font-weight: 700; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>h1 { font-size: 2.2rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: -1px; line-height: 1.1; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>p { margin-bottom: 20px; line-height: 1.6; font-size: 1.05rem; }</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.mono { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* Formulário e Botões */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.form-group { margin-bottom: 20px; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>label { display: block; font-weight: bold; margin-bottom: 8px; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>input, select {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>width: 100%; padding: 14px; border: 2px solid var(--line);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background: var(--paper); font-family: inherit; font-size: 1rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>input:focus, select:focus { outline: none; border-color: var(--rust); }</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.btn-primary {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background: var(--ink); color: var(--paper);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border: 2px solid var(--line); padding: 16px 30px; font-family: 'JetBrains Mono', monospace;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-weight: 500; cursor: pointer; transition: all 0.2s ease; width: 100%; font-size: 1.1rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>text-transform: uppercase;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.btn-primary:hover { background: var(--paper); color: var(--ink); box-shadow: 4px 4px 0px var(--line); transform: translateY(-2px); }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.btn-option {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background: var(--paper); color: var(--ink); border: 2px solid var(--line);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 18px; font-family: 'Lora', serif; font-size: 1.05rem; text-align: left;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>cursor: pointer; transition: all 0.1s ease; line-height: 1.4;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.btn-option:hover { background: var(--paper-3); border-color: var(--ink); }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* Temporizador */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.timer-container { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.timer-bar { width: 100%; height: 10px; background: var(--paper-3); border: 1px solid var(--line); margin-bottom: 24px; overflow: hidden; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.timer-fill { width: 100%; height: 100%; background: var(--rust); transition: width 0.1s linear; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* Abas de Resultados */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.tabs-nav { display: flex; border-bottom: 2px solid var(--line); margin-bottom: 24px; gap: 4px; overflow-x: auto; scrollbar-width: none; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.tabs-nav::-webkit-scrollbar { display: none; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.tab-btn {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background: var(--paper-3); color: var(--muted); border: 2px solid var(--line);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border-bottom: none; padding: 12px 20px; font-family: 'JetBrains Mono', monospace;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>cursor: pointer; white-space: nowrap; font-size: 0.9rem; transition: background 0.2s;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.tab-btn:hover { background: var(--paper-2); color: var(--ink); }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.tab-btn.active { background: var(--paper); color: var(--ink); font-weight: bold; position: relative; top: 2px; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.tradeoff-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>@media (max-width: 650px) { .tradeoff-grid { grid-template-columns: 1fr; } }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.card { background: var(--paper); border: 2px solid var(--line); padding: 24px; box-shadow: 4px 4px 0px var(--line); }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.card h3 { margin-bottom: 16px; border-bottom: 1px solid var(--line); padding-bottom: 8px; font-size: 1.2rem; }</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.tag-beneficio { color: var(--lime-deep); font-weight: bold; font-family: 'JetBrains Mono', monospace; display: block; margin-top: 12px; font-size: 0.85rem; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.tag-renuncia { color: var(--rust); font-weight: bold; font-family: 'JetBrains Mono', monospace; display: block; margin-top: 12px; font-size: 0.85rem; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.hidden { display: none !important; }</p>
+<p class="p1">&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;main class="container"&gt;</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;section id="screen-intro"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;Modo de Crise&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;p class="mono" style="color: var(--rust); margin-bottom: 24px;"&gt;[ EXPERIMENTO DO PONTO DE RUPTURA v1.1 ]&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;p&gt;Quantos segundos a sua clareza mental resiste ao caos antes de ceder ao impulso? Tome decisões sob forte pressão de tempo e descubra como o mecanismo de escolha individual se assemelha às decisões macroeconômicas de um país.&lt;/p&gt;</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="form-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;label for="input-idade"&gt;Sua Idade:&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;input type="number" id="input-idade" value="17" min="16" max="99"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="form-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;label for="input-titulo"&gt;Você já possui Título de Eleitor?&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;select id="input-titulo"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;option value="sim"&gt;Sim, já posso votar&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;option value="nao"&gt;Não, ainda não emiti&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/select&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;button class="btn-primary" onclick="startExperiment()"&gt;Iniciar Experimento&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;section id="screen-game" class="hidden"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="timer-container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;span class="mono" id="game-progress"&gt;CENÁRIO 1 DE 2&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;span class="mono" id="game-timer" style="color: var(--rust); font-weight: bold; font-size: 1.1rem;"&gt;04.0s&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="timer-bar"&gt;&lt;div id="timer-fill" class="timer-fill"&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2 id="scenario-title" style="margin-bottom: 24px; font-size: 1.5rem; line-height: 1.3;"&gt;Carregando cenário...&lt;/h2&gt;</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div style="display: flex; flex-direction: column; gap: 12px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn-option" id="btn-optA" onclick="submitAnswer('A')"&gt;Opção A&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn-option" id="btn-optB" onclick="submitAnswer('B')"&gt;Opção B&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;section id="screen-results" class="hidden"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;O Preço do Futuro&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;p&gt;O relógio parou. Na urgência do teste, sua mente fez escolhas sacrificiais. Na gestão de uma nação, o mecanismo é idêntico: &lt;strong&gt;para toda escolha, há uma renúncia.&lt;/strong&gt;&lt;/p&gt;</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="stats-banner" class="card mono" style="background: var(--paper-3); margin-bottom: 32px; font-size: 0.9rem; padding: 16px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h3 style="margin-bottom: 20px; font-size: 1.4rem;"&gt;Trade-offs Econômicos (2026)&lt;/h3&gt;</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;nav class="tabs-nav" id="tabs-container"&gt;&lt;/nav&gt;</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="tab-content"&gt;&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;button class="btn-primary" onclick="location.reload()" style="margin-top: 40px; background: transparent; color: var(--ink);"&gt;↻ Refazer Teste&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/main&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;script&gt;</p>
+<p class="p1">// ==========================================</p>
+<p class="p1">// 1. DADOS DA APLICAÇÃO (STATE &amp; MOCK DATA)</p>
+<p class="p1">// ==========================================</p>
+<p class="p2"><br></p>
+<p class="p1">const cenarios = [</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>id: "ciberataque",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>titulo: "Um ataque hacker internacional bloqueou os sistemas de comunicação e radares da polícia da sua cidade. O caos urbano começou. Você é o Governador.",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>optA: "Pagar o resgate milionário imediatamente usando fundos de emergência para reaver o controle em 2 minutos. (Priorizar a ordem imediata)",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>optB: "Recusar o pagamento por princípio, sabendo que os sistemas demorarão 48 horas para reiniciar enquanto a cidade sofre. (Priorizar a regra institucional)"</p>
+<p class="p1"><span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>id: "variante_viral",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>titulo: "Uma nova variante viral surge. Hospitais privados começam a superlotar. Há escassez de leitos gerais no município.",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>optA: "Decretar a requisição administrativa imediata de leitos da rede privada para uso público sem compensação financeira prévia.",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>optB: "Abrir uma mesa de negociação emergencial com os planos de saúde, prevendo um acordo formal de repasse financeiro em 3 dias."</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1">];</p>
+<p class="p2"><br></p>
+<p class="p1">const dadosMacro = {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>seguranca: {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>label: "🔒 SEGURANÇA",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>abordagemA: {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>titulo: "Expansão e Controle Federal",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>proposta: "Injeção massiva de capital em cibersegurança, inteligência integrada de dados e satélites de fronteira.",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>beneficio: "Redução do custo-país provocado pelo roubo de cargas. Seguros logísticos ficam mais baratos, aquecendo o comércio.",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>custo: "Aumento do endividamento público ou remanejamento de verbas de ministérios sociais."</p>
+<p class="p1"><span class="Apple-converted-space">    </span>},</p>
+<p class="p1"><span class="Apple-converted-space">    </span>abordagemB: {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>titulo: "Austeridade e Parcerias (PPP)",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>proposta: "Parcerias Público-Privadas para presídios e asfixia financeira de lavagem de dinheiro via compliance e COAF.",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>beneficio: "Alívio imediato no caixa direto do Estado, ajudando na ancoragem fiscal e controle inflacionário.",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>custo: "Risco de precarização da soberania estatal sobre o controle carcerário de longo prazo."</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>saude: {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>label: "🏥 SAÚDE",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>abordagemA: {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>titulo: "Universalização Estatal",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>proposta: "Expansão de subsídios a medicamentos e regulação severa sobre reajustes de convênios particulares.",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>beneficio: "Proteção direta da renda de famílias vulneráveis e blindagem da força de trabalho contra choques de saúde.",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>custo: "Aumento exponencial do gasto público estrutural, gerando pressão sobre as curvas de juros futuros."</p>
+<p class="p1"><span class="Apple-converted-space">    </span>},</p>
+<p class="p1"><span class="Apple-converted-space">    </span>abordagemB: {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>titulo: "Descentralização e Mercado",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>proposta: "Criação de planos de saúde populares desregulamentados e vouchers públicos para exames na rede privada.",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>beneficio: "Desafogamento rápido das filas do sistema público através da absorção de demanda pela iniciativa privada.",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>custo: "Exclusão de tratamentos complexos de alto custo para a base da pirâmide e precarização do atendimento crônico."</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>// Educação e Indústria removidos apenas para brevidade no exemplo, adicione seguindo a mesma estrutura.</p>
+<p class="p1">};</p>
+<p class="p2"><br></p>
+<p class="p1">// ==========================================</p>
+<p class="p1">// 2. LÓGICA DE CONTROLE (ENGINE)</p>
+<p class="p1">// ==========================================</p>
+<p class="p2"><br></p>
+<p class="p1">let estado = {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>usuario: { idade: 17, temTitulo: 'sim' },</p>
+<p class="p1"><span class="Apple-converted-space">  </span>respostas: [], // Otimização: Armazenar respostas para analytics real</p>
+<p class="p1"><span class="Apple-converted-space">  </span>cenarioAtual: 0,</p>
+<p class="p1"><span class="Apple-converted-space">  </span>timerInterval: null,</p>
+<p class="p1"><span class="Apple-converted-space">  </span>tempoRestante: 40, // 4.0s (em decibéis de segundo para animação fluida)</p>
+<p class="p1"><span class="Apple-converted-space">  </span>tempoTotalLeitura: 0</p>
+<p class="p1">};</p>
+<p class="p2"><br></p>
+<p class="p1">function startExperiment() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>estado.usuario.idade = parseInt(document.getElementById('input-idade').value) || 17;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>estado.usuario.temTitulo = document.getElementById('input-titulo').value;</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('screen-intro').classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('screen-game').classList.remove('hidden');</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1"><span class="Apple-converted-space">  </span>carregarCenario();</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function carregarCenario() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (estado.cenarioAtual &gt;= cenarios.length) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>finalizarExperimento();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1"><span class="Apple-converted-space">  </span>const cenario = cenarios[estado.cenarioAtual];</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('game-progress').innerText = `CENÁRIO ${estado.cenarioAtual + 1} DE ${cenarios.length}`;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('scenario-title').innerText = cenario.titulo;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('btn-optA').innerText = cenario.optA;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('btn-optB').innerText = cenario.optB;</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1"><span class="Apple-converted-space">  </span>iniciarTimer();</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function iniciarTimer() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>clearInterval(estado.timerInterval);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>estado.tempoRestante = 40;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>atualizarUiTimer();</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1"><span class="Apple-converted-space">  </span>estado.timerInterval = setInterval(() =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>estado.tempoRestante--;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>atualizarUiTimer();</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (estado.tempoRestante &lt;= 0) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>submitAnswer('TIMEOUT');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}, 100);</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function atualizarUiTimer() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const segundosFormatados = Math.max(0, (estado.tempoRestante / 10)).toFixed(1);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('game-timer').innerText = `${segundosFormatados.padStart(4, '0')}s`;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('timer-fill').style.width = `${(Math.max(0, estado.tempoRestante) / 40) * 100}%`;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function submitAnswer(opcaoSelecionada) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>clearInterval(estado.timerInterval); // Previne memory leak e execuções duplas</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// Otimização: Salvar a resposta no estado</p>
+<p class="p1"><span class="Apple-converted-space">  </span>estado.respostas.push({</p>
+<p class="p1"><span class="Apple-converted-space">    </span>cenarioId: cenarios[estado.cenarioAtual].id,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>resposta: opcaoSelecionada,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>tempoGastoSegundos: ((40 - Math.max(0, estado.tempoRestante)) / 10).toFixed(1)</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1"><span class="Apple-converted-space">  </span>console.log("Log de Analytics Parcial:", estado.respostas); // Útil para debugar</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1"><span class="Apple-converted-space">  </span>estado.cenarioAtual++;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>carregarCenario();</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">// ==========================================</p>
+<p class="p1">// 3. RENDERIZAÇÃO DE RESULTADOS (PAYOFF)</p>
+<p class="p1">// ==========================================</p>
+<p class="p2"><br></p>
+<p class="p1">function finalizarExperimento() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('screen-game').classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('screen-results').classList.remove('hidden');</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1"><span class="Apple-converted-space">  </span>renderizarEstatistica();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>renderizarAbas();</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function renderizarEstatistica() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const banner = document.getElementById('stats-banner');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const porcentagem = estado.usuario.temTitulo === 'sim' ? "+38%" : "-29%";</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const textoStatus = estado.usuario.temTitulo === 'sim' ? 'JÁ possuem' : 'NÃO possuem';</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1"><span class="Apple-converted-space">  </span>banner.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;span style="color: var(--muted); font-size: 0.8rem; letter-spacing: 1px;"&gt;MÉTRICA DO SEU GRUPO (${estado.usuario.idade} ANOS):&lt;/span&gt;&lt;br&gt;&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>Usuários que &lt;strong&gt;${textoStatus}&lt;/strong&gt; título de eleitor dedicam, em média,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;span style="color: var(--rust); font-weight:bold;"&gt;${porcentagem} de tempo&lt;/span&gt; à análise fria de dados antes de compartilhar um resultado online.</p>
+<p class="p1"><span class="Apple-converted-space">  </span>`;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function renderizarAbas() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const tabsContainer = document.getElementById('tabs-container');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>tabsContainer.innerHTML = '';</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1"><span class="Apple-converted-space">  </span>const chaves = Object.keys(dadosMacro);</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1"><span class="Apple-converted-space">  </span>chaves.forEach((key, index) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const btn = document.createElement('button');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>btn.className = `tab-btn ${index === 0 ? 'active' : ''}`;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>btn.innerText = dadosMacro[key].label;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>btn.onclick = (e) =&gt; alternarAba(key, e.target);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>tabsContainer.appendChild(btn);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// Força a renderização da primeira aba</p>
+<p class="p1"><span class="Apple-converted-space">  </span>alternarAba(chaves[0], tabsContainer.firstChild);</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function alternarAba(chaveId, elementoBotao) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.querySelectorAll('.tab-btn').forEach(b =&gt; b.classList.remove('active'));</p>
+<p class="p1"><span class="Apple-converted-space">  </span>elementoBotao.classList.add('active');</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1"><span class="Apple-converted-space">  </span>const dados = dadosMacro[chaveId];</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('tab-content').innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="tradeoff-grid"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;article class="card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3&gt;${dados.abordagemA.titulo}&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;${dados.abordagemA.proposta}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="tag-beneficio"&gt;🟢 BENEFÍCIO:&lt;br&gt;&lt;span style="color:var(--ink); font-family: Lora, serif; font-weight: normal;"&gt;${dados.abordagemA.beneficio}&lt;/span&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="tag-renuncia"&gt;🟠 RENÚNCIA (Custo):&lt;br&gt;&lt;span style="color:var(--ink); font-family: Lora, serif; font-weight: normal;"&gt;${dados.abordagemA.custo}&lt;/span&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/article&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;article class="card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3&gt;${dados.abordagemB.titulo}&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;${dados.abordagemB.proposta}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="tag-beneficio"&gt;🟢 BENEFÍCIO:&lt;br&gt;&lt;span style="color:var(--ink); font-family: Lora, serif; font-weight: normal;"&gt;${dados.abordagemB.beneficio}&lt;/span&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="tag-renuncia"&gt;🟠 RENÚNCIA (Custo):&lt;br&gt;&lt;span style="color:var(--ink); font-family: Lora, serif; font-weight: normal;"&gt;${dados.abordagemB.custo}&lt;/span&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/article&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>`;</p>
+<p class="p1">}</p>
+<p class="p1">&lt;/script&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
